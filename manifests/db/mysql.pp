@@ -7,7 +7,6 @@
 #
 # [*password*]
 #   (Mandatory) Password to connect to the database.
-#   Defaults to 'false'.
 #
 # [*dbname*]
 #   (Optional) Name of the database.

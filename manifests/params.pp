@@ -16,4 +16,6 @@ class ec2api::params {
     }
 
   } # Case $::osfamily
+
+  $package_name = 'openstack-ec2-api'
 }

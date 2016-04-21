@@ -16,13 +16,13 @@
 #   (Optional) User to connect to the database.
 #   Defaults to 'ec2api'.
 #
-#  [*encoding*]
-#    (Optional) The charset to use for the database.
-#    Default to undef.
+# [*encoding*]
+#   (Optional) The charset to use for the database.
+#   Default to undef.
 #
-#  [*privileges*]
-#    (Optional) Privileges given to the database user.
-#    Default to 'ALL'
+# [*privileges*]
+#   (Optional) Privileges given to the database user.
+#   Default to 'ALL'
 #
 # == Dependencies
 #

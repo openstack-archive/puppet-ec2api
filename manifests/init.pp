@@ -4,11 +4,29 @@
 #
 # === Parameters
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
+# [*package_ensure*]
+#    (Optional) Ensure state for package.
+#    Defaults to 'present'
 #
-class ec2api {
+# [*package_manage*]
+#    (Optional) Activate/deactivate ec2api package installation.
+#    Defaults to true
+#
+#
+class ec2api (
+  $package_ensure = 'present',
+  $package_manage = true,
+){
+  if $package_manage {
+    package { 'ec2api':
+      ensure => $package_ensure,
+      name   => $::ec2api::params::package_manage,
+    }
 
-  include ::ec2api::params
+    Package['ec2api'] ->
+    File <| title == 'ec2-api-config-file' |>
 
+    Package['ec2api'] ->
+    File <| title == 'ec2-api-paste-ini-file' |>
+  }
 }
