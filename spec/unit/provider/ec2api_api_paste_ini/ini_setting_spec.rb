@@ -4,35 +4,35 @@
 # related to loading these plugins.
 # I could not, for the life of me, figure out how to programatcally set the modulepath
 $LOAD_PATH.push(
-  File.join(
-    File.dirname(__FILE__),
-    '..',
-    '..',
-    '..',
-    'fixtures',
-    'modules',
-    'inifile',
-    'lib')
+    File.join(
+        File.dirname(__FILE__),
+        '..',
+        '..',
+        '..',
+        'fixtures',
+        'modules',
+        'inifile',
+        'lib')
 )
 $LOAD_PATH.push(
-  File.join(
-    File.dirname(__FILE__),
-    '..',
-    '..',
-    '..',
-    'fixtures',
-    'modules',
-    'openstacklib',
-    'lib')
+    File.join(
+        File.dirname(__FILE__),
+        '..',
+        '..',
+        '..',
+        'fixtures',
+        'modules',
+        'openstacklib',
+        'lib')
 )
 
 require 'spec_helper'
-provider_class = Puppet::Type.type(:ec2api_config).provider(:ini_setting)
+provider_class = Puppet::Type.type(:ec2api_api_paste_ini).provider(:ini_setting)
 describe provider_class do
 
   it 'should default to the default setting when no other one is specified' do
-    resource = Puppet::Type::Ec2api_config.new(
-      {:name => 'DEFAULT/foo', :value => 'bar'}
+    resource = Puppet::Type::Ec2api_api_paste_ini.new(
+        {:name => 'DEFAULT/foo', :value => 'bar'}
     )
     provider = provider_class.new(resource)
     expect(provider.section).to eq('DEFAULT')
@@ -40,8 +40,8 @@ describe provider_class do
   end
 
   it 'should allow setting to be set explicitly' do
-    resource = Puppet::Type::Ec2api_config.new(
-      {:name => 'dude/foo', :value => 'bar'}
+    resource = Puppet::Type::Ec2api_api_paste_ini.new(
+        {:name => 'dude/foo', :value => 'bar'}
     )
     provider = provider_class.new(resource)
     expect(provider.section).to eq('dude')
@@ -49,8 +49,8 @@ describe provider_class do
   end
 
   it 'should ensure absent when <SERVICE DEFAULT> is specified as a value' do
-    resource = Puppet::Type::Ec2api_config.new(
-      {:name => 'dude/foo', :value => '<SERVICE DEFAULT>'}
+    resource = Puppet::Type::Ec2api_api_paste_ini.new(
+        {:name => 'dude/foo', :value => '<SERVICE DEFAULT>'}
     )
     provider = provider_class.new(resource)
     provider.exists?
@@ -58,8 +58,8 @@ describe provider_class do
   end
 
   it 'should ensure absent when value matches ensure_absent_val' do
-    resource = Puppet::Type::Ec2api_config.new(
-      {:name => 'dude/foo', :value => 'foo', :ensure_absent_val => 'foo' }
+    resource = Puppet::Type::Ec2api_api_paste_ini.new(
+        {:name => 'dude/foo', :value => 'foo', :ensure_absent_val => 'foo' }
     )
     provider = provider_class.new(resource)
     provider.exists?
