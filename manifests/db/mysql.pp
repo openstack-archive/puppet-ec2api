@@ -42,17 +42,21 @@
 #
 # == Copyright
 #
-class ec2api::db::mysql(
+class ec2api::db::mysql (
   $password,
-  $dbname        = 'ec2api',
   $user          = 'ec2api',
+  $dbname        = 'ec2api',
   $host          = '127.0.0.1',
   $charset       = 'utf8',
   $collate       = 'utf8_general_ci',
   $allowed_hosts = undef
 ) {
-
   validate_string($password)
+  validate_string($dbname)
+  validate_string($user)
+  validate_string($host)
+  validate_string($charset)
+  validate_string($collate)
 
   ::openstacklib::db::mysql { 'ec2api':
     user          => $user,
@@ -64,5 +68,7 @@ class ec2api::db::mysql(
     allowed_hosts => $allowed_hosts,
   }
 
-  ::Openstacklib::Db::Mysql['ec2api'] ~> Exec<| title == 'ec2api-manage db_sync' |>
+  ::Openstacklib::Db::Mysql['ec2api'] ~>
+  Exec<| title == 'ec2api_db_sync' |>
+
 }

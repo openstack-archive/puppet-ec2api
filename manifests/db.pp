@@ -43,24 +43,16 @@ class ec2api::db (
   $database_max_overflow   = $::os_service_default,
 ) {
 
-  $database_connection_real = pick($::ec2api::database_connection, $database_connection)
-  $database_idle_timeout_real = pick($::ec2api::database_idle_timeout, $database_idle_timeout)
-  $database_min_pool_size_real = pick($::ec2api::database_min_pool_size, $database_min_pool_size)
-  $database_max_pool_size_real = pick($::ec2api::database_max_pool_size, $database_max_pool_size)
-  $database_max_retries_real = pick($::ec2api::database_max_retries, $database_max_retries)
-  $database_retry_interval_real = pick($::ec2api::database_retry_interval, $database_retry_interval)
-  $database_max_overflow_real = pick($::ec2api::database_max_overflow, $database_max_overflow)
-
-  validate_re($database_connection_real,
-    '^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?')
+  validate_re($database_connection, '^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?')
 
   oslo::db { 'ec2api_config':
-    connection     => $database_connection_real,
-    idle_timeout   => $database_idle_timeout_real,
-    min_pool_size  => $database_min_pool_size_real,
-    max_retries    => $database_max_retries_real,
-    retry_interval => $database_retry_interval_real,
-    max_pool_size  => $database_max_pool_size_real,
-    max_overflow   => $database_max_overflow_real,
+    connection     => $database_connection,
+    idle_timeout   => $database_idle_timeout,
+    min_pool_size  => $database_min_pool_size,
+    max_retries    => $database_max_retries,
+    retry_interval => $database_retry_interval,
+    max_pool_size  => $database_max_pool_size,
+    max_overflow   => $database_max_overflow,
   }
+
 }

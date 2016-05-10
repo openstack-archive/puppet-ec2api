@@ -32,15 +32,16 @@
 #
 # == Copyright
 #
-class ec2api::db::postgresql(
+class ec2api::db::postgresql (
   $password,
-  $dbname     = 'ec2api',
   $user       = 'ec2api',
+  $dbname     = 'ec2api',
   $encoding   = undef,
   $privileges = 'ALL',
 ) {
 
-  Class['ec2api::db::postgresql'] -> Service<| title == 'ec2api' |>
+  Class['ec2api::db::postgresql'] ->
+  Service<| tag == 'ec2api' |>
 
   ::openstacklib::db::postgresql { 'ec2api':
     password_hash => postgresql_password($user, $password),
@@ -50,6 +51,7 @@ class ec2api::db::postgresql(
     privileges    => $privileges,
   }
 
-  ::Openstacklib::Db::Postgresql['ec2api'] ~> Exec<| title == 'ec2api-manage db_sync' |>
+  ::Openstacklib::Db::Postgresql['ec2api'] ~>
+  Exec<| title == 'ec2api_db_sync' |>
 
 }
