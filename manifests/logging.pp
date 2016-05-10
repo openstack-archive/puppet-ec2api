@@ -4,10 +4,6 @@
 #
 # == parameters
 #
-#  [*verbose*]
-#    (Optional) Should the daemons log verbose messages
-#    Defaults to $::os_service_default
-#
 #  [*debug*]
 #    (Optional) Should the daemons log debug messages
 #    Defaults to $::os_service_default
@@ -96,14 +92,13 @@
 #    (optional) Format string for %%(asctime)s in log records.
 #    Defaults to $::os_service_default
 #    Example: 'Y-%m-%d %H:%M:%S'
-
+#
 class ec2api::logging(
   $use_syslog                    = $::os_service_default,
   $use_stderr                    = $::os_service_default,
   $log_facility                  = $::os_service_default,
   $log_dir                       = '/var/log/ec2api',
   $log_file                      = '/var/log/ec2api/ec2api.log',
-  $verbose                       = $::os_service_default,
   $debug                         = $::os_service_default,
   $logging_context_format_string = $::os_service_default,
   $logging_default_format_string = $::os_service_default,
@@ -124,7 +119,6 @@ class ec2api::logging(
     log_dir                       => $log_dir,
     log_file                      => $log_file,
     debug                         => $debug,
-    verbose                       => $verbose,
     logging_context_format_string => $logging_context_format_string,
     logging_default_format_string => $logging_default_format_string,
     logging_debug_format_suffix   => $logging_debug_format_suffix,
@@ -138,4 +132,5 @@ class ec2api::logging(
     log_date_format               => $log_date_format,
     syslog_log_facility           => $log_facility,
   }
+
 }

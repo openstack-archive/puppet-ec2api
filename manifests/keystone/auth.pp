@@ -28,7 +28,7 @@
 #   Defaults to 'true'.
 #
 # [*service_type*]
-#   Type of service. Defaults to 'key-manager'.
+#   Type of service. Defaults to 'ec2api'.
 #
 # [*region*]
 #   Region for endpoint. Defaults to 'RegionOne'.
@@ -60,21 +60,43 @@ class ec2api::keystone::auth (
   $configure_endpoint  = true,
   $configure_user      = true,
   $configure_user_role = true,
-  $service_name        = undef,
-  $service_description = 'ec2api Service',
-  $service_type        = 'ec2',
+  $service_name        = 'ec2api',
+  $service_description = 'The EC2 API Service',
+  $service_type        = 'ec2api',
   $region              = 'RegionOne',
   $public_url          = 'http://127.0.0.1:8788',
   $admin_url           = 'http://127.0.0.1:8788',
   $internal_url        = 'http://127.0.0.1:8788',
-) {
+) inherits ::ec2api::params {
+  validate_string($password)
+  validate_string($auth_name)
+  validate_string($email)
+  validate_string($tenant)
+  validate_bool($configure_endpoint)
+  validate_bool($configure_user)
+  validate_bool($configure_user_role)
 
   $real_service_name = pick($service_name, $auth_name)
 
   if $configure_user_role {
-    Keystone_user_role["${auth_name}@${tenant}"] ~> Service <| name == 'ec2api-server' |>
+    Keystone_user_role["${auth_name}@${tenant}"] ~>
+    Service <| title == 'openstack-ec2api-api-service' |>
+
+    Keystone_user_role["${auth_name}@${tenant}"] ~>
+    Service <| title == 'openstack-ec2-api-metadata' |>
+
+    Keystone_user_role["${auth_name}@${tenant}"] ~>
+    Service <| title == 'openstack-ec2-api-s3' |>
   }
-  Keystone_endpoint["${region}/${real_service_name}::${service_type}"]  ~> Service <| name == 'ec2api-server' |>
+
+  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
+  Service <| title == 'openstack-ec2api-api-service' |>
+
+  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
+  Service <| title == 'openstack-ec2-api-metadata' |>
+
+  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
+  Service <| title == 'openstack-ec2-api-s3' |>
 
   keystone::resource::service_identity { 'ec2api':
     configure_user      => $configure_user,

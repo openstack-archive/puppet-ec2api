@@ -1,41 +1,30 @@
 require 'spec_helper'
 
 describe 'ec2api::policy' do
+  on_supported_os(supported_os: OSDefaults.get_supported_os).each do |os,facts|
+    context "on #{os}" do
 
-  shared_examples_for 'ec2api policies' do
-    let :params do
-      {
-        :policy_path => '/etc/ec2api/policy.json',
-        :policies    => {
-          'context_is_admin' => {
-            'key'   => 'context_is_admin',
-            'value' => 'foo:bar'
+      let(:facts) { facts.merge! @default_facts }
+
+      describe 'with default parameters' do
+        it { is_expected.to compile.with_all_deps }
+
+        it { is_expected.to contain_class('ec2api::policy') }
+      end
+
+      describe 'with custom parameters' do
+        let(:params) do
+          {
+              policies: {},
+              policy_path: '/etc/ec2api/policy.json',
           }
-        }
-      }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it { is_expected.to contain_class('ec2api::policy') }
+      end
+
     end
-
-    it 'set up the policies' do
-      is_expected.to contain_openstacklib__policy__base('context_is_admin').with({
-        :key   => 'context_is_admin',
-        :value => 'foo:bar'
-      })
-    end
-  end
-
-  context 'on Debian platforms' do
-    let :facts do
-      { :osfamily => 'Debian' }
-    end
-
-    it_configures 'ec2api policies'
-  end
-
-  context 'on RedHat platforms' do
-    let :facts do
-      { :osfamily => 'RedHat' }
-    end
-
-    it_configures 'ec2api policies'
   end
 end

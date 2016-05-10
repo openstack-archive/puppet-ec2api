@@ -29,6 +29,7 @@ class ec2api::policy (
 ) {
 
   validate_hash($policies)
+  validate_absolute_path($policy_path)
 
   Openstacklib::Policy::Base {
     file_path => $policy_path,
