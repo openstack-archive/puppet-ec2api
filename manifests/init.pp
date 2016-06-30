@@ -19,11 +19,17 @@
 #   Override the provider used to manage the package.
 #   Default: undef
 #
+# [*purge_config*]
+#   (optional) Whether to set only the specified config options
+#   in the ec2api config.
+#   Defaults to false.
+#
 class ec2api (
   $package_ensure   = 'present',
   $package_manage   = true,
   $package_name     = $::ec2api::params::package_name,
   $package_provider = undef,
+  $purge_config     = false,
 ) inherits ::ec2api::params {
 
   validate_string($package_ensure)
@@ -39,6 +45,10 @@ class ec2api (
 
     Package['ec2api'] ->
     Class['ec2api::config']
+  }
+
+  resources { 'ec2api_config':
+    purge => $purge_config,
   }
 
   include '::ec2api::config'

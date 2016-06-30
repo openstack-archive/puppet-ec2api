@@ -7,6 +7,16 @@ describe 'ec2api' do
       let(:facts) { facts.merge! @default_facts }
 
       describe 'with default parameters' do
+        let :params do
+          { :purge_config => false  }
+        end
+
+        it 'passes purge to resource' do
+          is_expected.to contain_resources('ec2api_config').with({
+            :purge => false
+          })
+        end
+
         it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_class('ec2api') }
