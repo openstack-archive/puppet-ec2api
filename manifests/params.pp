@@ -4,6 +4,7 @@
 # should be considered to be constant
 #
 class ec2api::params {
+  include ::openstacklib::defaults
   case $::osfamily {
     'RedHat': {
       $package_name          = 'openstack-ec2-api'
