@@ -45,7 +45,51 @@
 #   Maximum time since last check-in for up service.
 #   Default: $::os_service_default
 #
-# === Keystone
+# === KeystoneMiddleware
+#
+# [*password*]
+#   (required) Password for the user
+#
+# [*username*]
+#   (optional) The name of the service user
+#   Defaults to 'ec2api'
+#
+# [*auth_url*]
+#   (optional) The URL to use for authentication.
+#   Defaults to 'http://localhost:35357/'.
+#
+# [*auth_uri*]
+#  (optional) The URL to use for public authentication.
+#  Defaults to: 'http://localhost:5000/'.
+#
+# [*project_name*]
+#   (optional) Service project name
+#   Defaults to 'services'
+#
+# [*user_domain_name*]
+#   (optional) Name of domain for $username
+#   Defaults to $::os_service_default
+#
+# [*project_domain_name*]
+#   (optional) Name of domain for $project_name
+#   Defaults to $::os_service_default
+#
+# [*auth_section*]
+#   (optional) Config Section from which to load plugin specific options
+#   Defaults to $::os_service_default
+#
+# [*auth_type*]
+#  (optional) Authentication type to load
+#  Defaults to 'password'
+#
+# [*auth_version*]
+#   (optional) API version of the admin Identity API endpoint
+#   for example, use 'v3' for the keystone version 3.0 api
+#   Defaults to-$::os_service_default
+#
+# [*cache*]
+#   (optional) Env key for the swift cache.
+#   Defaults to $::os_service_default
 #
 # [*delay_auth_decision*]
 #   Do not handle authorization requests within the middleware, but delegate
@@ -58,17 +102,6 @@
 #
 # [*http_request_max_retries*]
 #   How many times are we trying to reconnect when communicating with Identity API Server.
-#   Default: $::os_service_default
-#
-# [*keystone_admin_user*]
-#   Keystone account username
-#   Default: $::os_service_default
-#
-# [*keystone_admin_password*]
-#   (Required) Keystone account password
-#
-# [*keystone_admin_tenant_name*]
-#   Keystone service account tenant name to validate user tokens
 #   Default: $::os_service_default
 #
 # [*insecure*]
@@ -90,7 +123,7 @@
 #   (in seconds). Set to -1 to disable caching completely
 #   Default: $::os_service_default
 #
-# [*cache_time*]
+# [*revocation_cache_time*]
 #   Time to cache the revocation list and the revocation
 #   events (in seconds). This has no effect unless
 #   global and token caching are enabled.
@@ -109,6 +142,41 @@
 #   (Required if memcache_security_strategy is defined) this string
 #   is used for key derivation
 #   Default: $::os_service_default
+#
+# [*memcache_pool_conn_get_timeout*]
+#   (Optional) Number of seconds that an operation will wait to get a
+#   memcached
+#   client connection from the pool. Integer value
+#   Defaults to $::os_service_default.
+#
+# [*memcache_pool_dead_retry*]
+#   (Optional) Number of seconds memcached server is considered dead before it
+#   is tried again. Integer value
+#   Defaults to $::os_service_default.
+#
+# [*memcache_pool_maxsize*]
+#   (Optional) Maximum total number of open connections to every memcached
+#   server. Integer value
+#   Defaults to $::os_service_default.
+#
+# [*memcache_pool_socket_timeout*]
+#   (Optional) Number of seconds a connection to memcached is held unused in
+#   the pool before it is closed. Integer value
+#   Defaults to $::os_service_default.
+#
+# [*memcache_pool_unused_timeout*]
+#   (Optional) Number of seconds a connection to memcached is held unused in
+#   the pool before it is closed. Integer value
+#   Defaults to $::os_service_default.
+#
+# [*memcache_use_advanced_pool*]
+#   (Optional)  Use the advanced (eventlet safe) memcached client pool. The
+#   advanced pool will only work under python 2.x Boolean value
+#   Defaults to $::os_service_default.
+#
+# [*region_name*]
+#   (Optional) The region in which the identity server can be found.
+#   Defaults to $::os_service_default.
 #
 # [*include_service_catalog*]
 #   (Optional) Indicates whether to set the X-Service-Catalog header. If False,
@@ -147,15 +215,15 @@
 #   value for better performance
 #   Default: $::os_service_default
 #
-# [*keystone_certfile*]
+# [*certfile*]
 #   Required if Keystone server requires client certificate
 #   Default: $::os_service_default
 #
-# [*keystone_keyfile*]
+# [*keyfile*]
 #   Required if Keystone server requires client certificate
 #   Default: $::os_service_default
 #
-# [*keystone_cafile*]
+# [*cafile*]
 #   A PEM encoded Certificate Authority to use when verifying HTTPs
 #   connections. Defaults to system CAs.
 #   Default: $::os_service_default
@@ -355,26 +423,41 @@ class ec2api::api (
   $ec2api_workers                     = $::os_service_default,
   $service_down_time                  = $::os_service_default,
   # Keystone
+  $username                           = 'ec2api',
+  $password,
+  $project_name                       = 'services',
+  $auth_url                           = 'http://localhost:35357/',
+  $auth_uri                           = 'http://localhost:5000/',
+  $auth_version                       = $::os_service_default,
+  $auth_type                          = 'password',
+  $auth_section                       = $::os_service_default,
+  $user_domain_name                   = $::os_service_default,
+  $project_domain_name                = $::os_service_default,
+  $cache                              = $::os_service_default,
   $delay_auth_decision                = $::os_service_default,
   $http_connect_timeout               = $::os_service_default,
   $http_request_max_retries           = $::os_service_default,
-  $keystone_admin_user                = $::os_service_default,
-  $keystone_admin_password,
-  $keystone_admin_tenant_name         = $::os_service_default,
   $insecure                           = $::os_service_default,
   $signing_dir                        = $::os_service_default,
   $token_cache_time                   = $::os_service_default,
-  $cache_time                         = $::os_service_default,
+  $revocation_cache_time              = $::os_service_default,
   $memcached_servers                  = $::os_service_default,
   $memcache_security_strategy         = $::os_service_default,
   $memcache_secret_key                = $::os_service_default,
+  $memcache_pool_conn_get_timeout     = $::os_service_default,
+  $memcache_pool_dead_retry           = $::os_service_default,
+  $memcache_pool_maxsize              = $::os_service_default,
+  $memcache_pool_socket_timeout       = $::os_service_default,
+  $memcache_pool_unused_timeout       = $::os_service_default,
+  $memcache_use_advanced_pool         = $::os_service_default,
+  $region_name                        = $::os_service_default,
   $include_service_catalog            = $::os_service_default,
   $enforce_token_bind                 = $::os_service_default,
   $check_revocations_for_cached       = $::os_service_default,
   $hash_algorithms                    = $::os_service_default,
-  $keystone_certfile                  = $::os_service_default,
-  $keystone_keyfile                   = $::os_service_default,
-  $keystone_cafile                    = $::os_service_default,
+  $certfile                           = $::os_service_default,
+  $keyfile                            = $::os_service_default,
+  $cafile                             = $::os_service_default,
   # WSGI
   $api_paste_config                   = $::os_service_default,
   $ssl_cert_file                      = $::os_service_default,
@@ -440,26 +523,6 @@ class ec2api::api (
     'DEFAULT/ec2api_use_ssl':                          value => $ec2api_use_ssl;
     'DEFAULT/ec2api_workers':                          value => $ec2api_workers;
     'DEFAULT/service_down_time':                       value => $service_down_time;
-    'keystone_authtoken/delay_auth_decision':          value => $delay_auth_decision;
-    'keystone_authtoken/http_connect_timeout':         value => $http_connect_timeout;
-    'keystone_authtoken/http_request_max_retries':     value => $http_request_max_retries;
-    'keystone_authtoken/admin_user':                   value => $keystone_admin_user;
-    'keystone_authtoken/admin_password':               value => $keystone_admin_password;
-    'keystone_authtoken/admin_tenant':                 value => $keystone_admin_tenant_name;
-    'keystone_authtoken/insecure':                     value => $insecure;
-    'keystone_authtoken/signing_dir':                  value => $signing_dir;
-    'keystone_authtoken/token_cache_time':             value => $token_cache_time;
-    'keystone_authtoken/cache_time':                   value => $cache_time;
-    'keystone_authtoken/memcached_servers':            value => $memcached_servers;
-    'keystone_authtoken/memcache_security_strategy':   value => $memcache_security_strategy;
-    'keystone_authtoken/memcache_secret_key':          value => $memcache_secret_key;
-    'keystone_authtoken/include_service_catalog':      value => $include_service_catalog;
-    'keystone_authtoken/enforce_token_bind':           value => $enforce_token_bind;
-    'keystone_authtoken/check_revocations_for_cached': value => $check_revocations_for_cached;
-    'keystone_authtoken/hash_algorithms':              value => $hash_algorithms;
-    'keystone_authtoken/certfile':                     value => $keystone_certfile;
-    'keystone_authtoken/keyfile':                      value => $keystone_keyfile;
-    'keystone_authtoken/cafile':                       value => $keystone_cafile;
     'DEFAULT/api_paste_config':                        value => $api_paste_config;
     'DEFAULT/ssl_cert_file':                           value => $ssl_cert_file;
     'DEFAULT/ssl_key_file':                            value => $ssl_key_file;
@@ -495,6 +558,46 @@ class ec2api::api (
     'DEFAULT/state_path':                              value => $state_path;
     'DEFAULT/debug':                                   value => $debug;
   }
+
+
+  keystone::resource::authtoken { 'ec2api_config':
+    username                       => $username,
+    password                       => $password,
+    project_name                   => $project_name,
+    auth_url                       => $auth_url,
+    auth_uri                       => $auth_uri,
+    auth_version                   => $auth_version,
+    auth_type                      => $auth_type,
+    auth_section                   => $auth_section,
+    user_domain_name               => $user_domain_name,
+    project_domain_name            => $project_domain_name,
+    insecure                       => $insecure,
+    cache                          => $cache,
+    cafile                         => $cafile,
+    certfile                       => $certfile,
+    check_revocations_for_cached   => $check_revocations_for_cached,
+    delay_auth_decision            => $delay_auth_decision,
+    enforce_token_bind             => $enforce_token_bind,
+    hash_algorithms                => $hash_algorithms,
+    http_connect_timeout           => $http_connect_timeout,
+    http_request_max_retries       => $http_request_max_retries,
+    include_service_catalog        => $include_service_catalog,
+    keyfile                        => $keyfile,
+    memcache_pool_conn_get_timeout => $memcache_pool_conn_get_timeout,
+    memcache_pool_dead_retry       => $memcache_pool_dead_retry,
+    memcache_pool_maxsize          => $memcache_pool_maxsize,
+    memcache_pool_socket_timeout   => $memcache_pool_socket_timeout,
+    memcache_secret_key            => $memcache_secret_key,
+    memcache_security_strategy     => $memcache_security_strategy,
+    memcache_use_advanced_pool     => $memcache_use_advanced_pool,
+    memcache_pool_unused_timeout   => $memcache_pool_unused_timeout,
+    memcached_servers              => $memcached_servers,
+    region_name                    => $region_name,
+    revocation_cache_time          => $revocation_cache_time,
+    signing_dir                    => $signing_dir,
+    token_cache_time               => $token_cache_time,
+  }
+
 
   if $manage_service {
     if $enabled {

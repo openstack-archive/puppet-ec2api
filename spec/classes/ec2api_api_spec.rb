@@ -8,7 +8,7 @@ describe 'ec2api::api', type: :class do
 
       let(:params) do
         {
-            keystone_admin_password: 'my_password',
+            password: 'my_password',
         }
       end
 
@@ -21,25 +21,6 @@ describe 'ec2api::api', type: :class do
         DEFAULT/ec2api_use_ssl
         DEFAULT/ec2api_workers
         DEFAULT/service_down_time
-        keystone_authtoken/delay_auth_decision
-        keystone_authtoken/http_connect_timeout
-        keystone_authtoken/http_request_max_retries
-        keystone_authtoken/admin_user
-        keystone_authtoken/admin_tenant
-        keystone_authtoken/insecure
-        keystone_authtoken/signing_dir
-        keystone_authtoken/token_cache_time
-        keystone_authtoken/cache_time
-        keystone_authtoken/memcached_servers
-        keystone_authtoken/memcache_security_strategy
-        keystone_authtoken/memcache_secret_key
-        keystone_authtoken/include_service_catalog
-        keystone_authtoken/enforce_token_bind
-        keystone_authtoken/check_revocations_for_cached
-        keystone_authtoken/hash_algorithms
-        keystone_authtoken/certfile
-        keystone_authtoken/keyfile
-        keystone_authtoken/cafile
         DEFAULT/api_paste_config
         DEFAULT/ssl_cert_file
         DEFAULT/ssl_key_file
@@ -74,6 +55,35 @@ describe 'ec2api::api', type: :class do
         DEFAULT/bindir
         DEFAULT/state_path
         DEFAULT/debug
+        keystone_authtoken/auth_version
+        keystone_authtoken/auth_section
+        keystone_authtoken/user_domain_name
+        keystone_authtoken/project_domain_name
+        keystone_authtoken/insecure
+        keystone_authtoken/cache
+        keystone_authtoken/cafile
+        keystone_authtoken/certfile
+        keystone_authtoken/check_revocations_for_cached
+        keystone_authtoken/delay_auth_decision
+        keystone_authtoken/enforce_token_bind
+        keystone_authtoken/hash_algorithms
+        keystone_authtoken/http_connect_timeout
+        keystone_authtoken/http_request_max_retries
+        keystone_authtoken/include_service_catalog
+        keystone_authtoken/keyfile
+        keystone_authtoken/memcache_pool_conn_get_timeout
+        keystone_authtoken/memcache_pool_dead_retry
+        keystone_authtoken/memcache_pool_maxsize
+        keystone_authtoken/memcache_pool_socket_timeout
+        keystone_authtoken/memcache_secret_key
+        keystone_authtoken/memcache_security_strategy
+        keystone_authtoken/memcache_use_advanced_pool
+        keystone_authtoken/memcache_pool_unused_timeout
+        keystone_authtoken/memcached_servers
+        keystone_authtoken/region_name
+        keystone_authtoken/revocation_cache_time
+        keystone_authtoken/signing_dir
+        keystone_authtoken/token_cache_time
       )
 
       context 'with default parameters' do
@@ -87,7 +97,12 @@ describe 'ec2api::api', type: :class do
           it { is_expected.to contain_ec2api_config(item).with_value('<SERVICE DEFAULT>') }
         end
 
-        it { is_expected.to contain_ec2api_config('keystone_authtoken/admin_password').with_value('my_password') }
+        it { is_expected.to contain_ec2api_config('keystone_authtoken/password').with_value('my_password') }
+        it { is_expected.to contain_ec2api_config('keystone_authtoken/username').with_value('ec2api') }
+        it { is_expected.to contain_ec2api_config('keystone_authtoken/project_name').with_value('services') }
+        it {is_expected.to contain_ec2api_config('keystone_authtoken/auth_url').with_value('http://localhost:35357/') }
+        it { is_expected.to contain_ec2api_config('keystone_authtoken/auth_uri').with_value('http://localhost:5000/') }
+        it { is_expected.to contain_ec2api_config('keystone_authtoken/auth_type').with_value('password') }
 
         service_parameters = {
             ensure: 'running',
@@ -103,7 +118,7 @@ describe 'ec2api::api', type: :class do
               manage_service: true,
               service_name: 'my-api-service',
               enabled: false,
-              keystone_admin_password: 'my_password',
+              password: 'my_password',
           }
         end
 
