@@ -49,7 +49,6 @@ describe 'ec2api::api', type: :class do
         DEFAULT/pybasedir
         DEFAULT/bindir
         DEFAULT/state_path
-        DEFAULT/debug
       )
 
       context 'with default parameters' do

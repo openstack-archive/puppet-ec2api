@@ -224,10 +224,6 @@
 #   Should the service be enabled and started (true) of disabled and stopped (false).
 #   Default: true
 #
-# [*debug*]
-#   Show debug messages
-#   Default: $::os_service_default
-#
 class ec2api::api (
   # API
   $keystone_url                       = $::os_service_default,
@@ -287,8 +283,6 @@ class ec2api::api (
   $manage_service                     = true,
   $service_name                       = $::ec2api::params::api_service_name,
   $enabled                            = true,
-  # Debug
-  $debug                              = $::os_service_default,
 ) inherits ::ec2api::params {
 
   validate_bool($manage_service)
@@ -337,7 +331,6 @@ class ec2api::api (
     'DEFAULT/pybasedir':                               value => $pybasedir;
     'DEFAULT/bindir':                                  value => $bindir;
     'DEFAULT/state_path':                              value => $state_path;
-    'DEFAULT/debug':                                   value => $debug;
   }
 
 
