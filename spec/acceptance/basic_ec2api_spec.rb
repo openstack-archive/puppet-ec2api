@@ -24,7 +24,17 @@ describe 'basic ec2api' do
           warning('Ec2api is not yet packaged on Ubuntu systems.')
         }
         'RedHat': {
+          class { '::ec2api::db':
+            database_connection => 'mysql://ec2api:a_big_secret@127.0.0.1/ec2api?charset=utf8',
+          }
           class { '::ec2api': }
+          class { '::ec2api::keystone::authtoken':
+            password => 'a_big_secret',
+          }
+          class { '::ec2api::api':
+            keystone_url => 'http://127.0.0.1:5000/v2',
+          }
+          include ::ec2api::metadata
         }
       }
       EOS
