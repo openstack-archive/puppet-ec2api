@@ -84,9 +84,6 @@ class ec2api::keystone::auth (
 
     Keystone_user_role["${auth_name}@${tenant}"] ~>
     Service <| title == 'openstack-ec2-api-metadata' |>
-
-    Keystone_user_role["${auth_name}@${tenant}"] ~>
-    Service <| title == 'openstack-ec2-api-s3' |>
   }
 
   Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
@@ -94,9 +91,6 @@ class ec2api::keystone::auth (
 
   Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
   Service <| title == 'openstack-ec2-api-metadata' |>
-
-  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
-  Service <| title == 'openstack-ec2-api-s3' |>
 
   keystone::resource::service_identity { 'ec2api':
     configure_user      => $configure_user,
