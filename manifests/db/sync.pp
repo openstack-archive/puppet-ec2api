@@ -23,6 +23,8 @@ class ec2api::db::sync (
     user        => $system_user,
     group       => $system_group,
     refreshonly => true,
+    try_sleep   => 5,
+    tries       => 10,
   }
 
   Package <| title == 'ec2api' |> ~>
