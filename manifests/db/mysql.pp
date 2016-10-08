@@ -70,5 +70,4 @@ class ec2api::db::mysql (
 
   ::Openstacklib::Db::Mysql['ec2api'] ~>
   Exec<| title == 'ec2api_db_sync' |>
-
 }
