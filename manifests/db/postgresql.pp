@@ -53,5 +53,4 @@ class ec2api::db::postgresql (
 
   ::Openstacklib::Db::Postgresql['ec2api'] ~>
   Exec<| title == 'ec2api_db_sync' |>
-
 }

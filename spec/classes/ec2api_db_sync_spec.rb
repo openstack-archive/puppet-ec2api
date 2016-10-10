@@ -8,7 +8,7 @@ describe 'ec2api::db::sync' do
 
       describe 'with default parameters' do
         exec_parameters = {
-            command: 'ec2api-manage db_sync',
+            command: 'ec2-api-manage db_sync',
             path: '/usr/bin',
             user: 'ec2api',
             group: 'ec2api',

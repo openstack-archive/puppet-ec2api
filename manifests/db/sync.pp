@@ -18,7 +18,7 @@ class ec2api::db::sync (
 ) inherits ::ec2api::params {
 
   exec { 'ec2api_db_sync' :
-    command     => 'ec2api-manage db_sync',
+    command     => 'ec2-api-manage db_sync',
     path        => '/usr/bin',
     user        => $system_user,
     group       => $system_group,
@@ -35,12 +35,6 @@ class ec2api::db::sync (
 
   User <| title == 'ec2api' |> ->
   Exec['ec2api_db_sync']
-
-  Exec['ec2api_db_sync'] ~>
-  Service<| tag == 'ec2api-service' |>
-
-  Exec['ec2api_db_sync'] ~>
-  Service<| tag == 'ec2api-service' |>
 
   Exec['ec2api_db_sync'] ~>
   Service<| tag == 'ec2api-service' |>
