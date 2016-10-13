@@ -14,7 +14,6 @@ describe 'ec2api::api', type: :class do
         DEFAULT/ec2api_listen
         DEFAULT/ec2api_listen_port
         DEFAULT/ec2api_use_ssl
-        DEFAULT/ec2api_workers
         DEFAULT/service_down_time
         DEFAULT/api_paste_config
         DEFAULT/ssl_cert_file
@@ -60,6 +59,10 @@ describe 'ec2api::api', type: :class do
 
         config_items.each do |item|
           it { is_expected.to contain_ec2api_config(item).with_value('<SERVICE DEFAULT>') }
+        end
+
+        it 'configures workers using os_workers' do
+          is_expected.to contain_ec2api_config('DEFAULT/ec2api_workers').with_value(2)
         end
 
         service_parameters = {

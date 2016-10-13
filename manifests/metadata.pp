@@ -55,7 +55,7 @@
 # [*metadata_workers*]
 #   Number of workers for metadata service.
 #   The default will be the number of CPUs available.
-#   Default: $::os_service_default
+#   Default: $::os_workers
 #
 # ==== Manage Service
 #
@@ -85,7 +85,7 @@ class ec2api::metadata (
   $metadata_listen              = $::os_service_default,
   $metadata_listen_port         = $::os_service_default,
   $metadata_use_ssl             = $::os_service_default,
-  $metadata_workers             = $::os_service_default,
+  $metadata_workers             = $::os_workers,
   # Manage service
   $manage_service               = true,
   $service_name                 = $::ec2api::params::metadata_service_name,

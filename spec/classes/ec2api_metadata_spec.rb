@@ -18,7 +18,6 @@ describe 'ec2api::metadata', type: :class do
         DEFAULT/metadata_listen
         DEFAULT/metadata_listen_port
         DEFAULT/metadata_use_ssl
-        DEFAULT/metadata_workers
       )
 
       context 'with default parameters' do
@@ -30,6 +29,10 @@ describe 'ec2api::metadata', type: :class do
 
         config_items.each do |item|
           it { is_expected.to contain_ec2api_config(item).with_value('<SERVICE DEFAULT>') }
+        end
+
+        it 'configures workers using os_workers' do
+          is_expected.to contain_ec2api_config('DEFAULT/metadata_workers').with_value(2)
         end
 
         service_parameters = {
