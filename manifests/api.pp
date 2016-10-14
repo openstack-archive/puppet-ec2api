@@ -39,7 +39,7 @@
 # [*ec2api_workers*]
 #   Number of workers for EC2 API service.
 #   The default will be equal to the number of CPUs available.
-#   Default: $::os_service_default
+#   Default: $::os_workers
 #
 # [*service_down_time*]
 #   Maximum time since last check-in for up service.
@@ -233,7 +233,7 @@ class ec2api::api (
   $ec2api_listen                      = $::os_service_default,
   $ec2api_listen_port                 = $::os_service_default,
   $ec2api_use_ssl                     = $::os_service_default,
-  $ec2api_workers                     = $::os_service_default,
+  $ec2api_workers                     = $::os_workers,
   $service_down_time                  = $::os_service_default,
   # WSGI
   $api_paste_config                   = $::os_service_default,
