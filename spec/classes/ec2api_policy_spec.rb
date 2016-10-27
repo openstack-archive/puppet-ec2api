@@ -1,30 +1,39 @@
 require 'spec_helper'
 
 describe 'ec2api::policy' do
-  on_supported_os(supported_os: OSDefaults.get_supported_os).each do |os,facts|
-    context "on #{os}" do
 
-      let(:facts) { facts.merge! @default_facts }
-
-      describe 'with default parameters' do
-        it { is_expected.to compile.with_all_deps }
-
-        it { is_expected.to contain_class('ec2api::policy') }
-      end
-
-      describe 'with custom parameters' do
-        let(:params) do
-          {
-              policies: {},
-              policy_path: '/etc/ec2api/policy.json',
+  shared_examples_for 'ec2api policies' do
+    let :params do
+      {
+        :policy_path => '/etc/ec2api/policy.json',
+        :policies    => {
+          'context_is_admin' => {
+            'key'   => 'context_is_admin',
+            'value' => 'foo:bar'
           }
-        end
+        }
+      }
+    end
 
-        it { is_expected.to compile.with_all_deps }
-
-        it { is_expected.to contain_class('ec2api::policy') }
-      end
-
+    it 'set up the policies' do
+      is_expected.to contain_openstacklib__policy__base('context_is_admin').with({
+        :key   => 'context_is_admin',
+        :value => 'foo:bar'
+      })
+      is_expected.to contain_ec2api_config('oslo_policy/policy_file').with_value('/etc/ec2api/policy.json')
     end
   end
+
+  on_supported_os({
+    :supported_os   => OSDefaults.get_supported_os
+  }).each do |os,facts|
+    context "on #{os}" do
+      let (:facts) do
+        facts.merge!(OSDefaults.get_facts())
+      end
+
+      it_configures 'ec2api policies'
+    end
+  end
+
 end
