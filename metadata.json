@@ -8,6 +8,16 @@
   "project_page": "https://launchpad.net/puppet-ec2api",
   "issues_url": "https://bugs.launchpad.net/puppet-ec2api",
   "description": "Installs and configures OpenStack Ec2api.",
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "4.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "4.x"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
