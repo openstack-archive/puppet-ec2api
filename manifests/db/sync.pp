@@ -17,6 +17,8 @@ class ec2api::db::sync (
   $system_group = 'ec2api',
 ) inherits ::ec2api::params {
 
+  include ::ec2api::deps
+
   exec { 'ec2api_db_sync' :
     command     => 'ec2-api-manage db_sync',
     path        => '/usr/bin',
@@ -25,17 +27,12 @@ class ec2api::db::sync (
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,
+    subscribe   => [
+      Anchor['ec2api::install::end'],
+      Anchor['ec2api::config::end'],
+      Anchor['ec2api::dbsync::begin']
+    ],
+    notify      => Anchor['ec2api::dbsync::end'],
   }
 
-  Package <| title == 'ec2api' |> ~>
-  Exec['ec2api_db_sync']
-
-  Ec2api_config <| title == 'database/connection' |> ~>
-  Exec['ec2api_db_sync']
-
-  User <| title == 'ec2api' |> ->
-  Exec['ec2api_db_sync']
-
-  Exec['ec2api_db_sync'] ~>
-  Service<| tag == 'ec2api-service' |>
 }
