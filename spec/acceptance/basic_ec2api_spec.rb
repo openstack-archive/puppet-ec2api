@@ -36,6 +36,9 @@ describe 'basic ec2api' do
           }
           include ::ec2api::metadata
         }
+        default: {
+          fail("Unsupported osfamily (${::osfamily})")
+        }
       }
       EOS
 
