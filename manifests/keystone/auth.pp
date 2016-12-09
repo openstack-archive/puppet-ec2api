@@ -68,6 +68,9 @@ class ec2api::keystone::auth (
   $admin_url           = 'http://127.0.0.1:8788',
   $internal_url        = 'http://127.0.0.1:8788',
 ) inherits ::ec2api::params {
+
+  include ::ec2api::deps
+
   validate_string($password)
   validate_string($auth_name)
   validate_string($email)
@@ -79,18 +82,13 @@ class ec2api::keystone::auth (
   $real_service_name = pick($service_name, $auth_name)
 
   if $configure_user_role {
-    Keystone_user_role["${auth_name}@${tenant}"] ~>
-    Service <| title == 'openstack-ec2api-api-service' |>
-
-    Keystone_user_role["${auth_name}@${tenant}"] ~>
-    Service <| title == 'openstack-ec2-api-metadata' |>
+    Keystone_user_role["${auth_name}@${tenant}"] ~> Anchor['ec2api::service::end']
   }
 
-  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
-  Service <| title == 'openstack-ec2api-api-service' |>
-
-  Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
-  Service <| title == 'openstack-ec2-api-metadata' |>
+  if $configure_endpoint {
+    Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
+    Anchor['ec2api::service::end']
+  }
 
   keystone::resource::service_identity { 'ec2api':
     configure_user      => $configure_user,

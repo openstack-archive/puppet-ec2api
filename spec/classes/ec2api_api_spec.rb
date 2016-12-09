@@ -54,7 +54,7 @@ describe 'ec2api::api', type: :class do
         it { is_expected.to compile.with_all_deps }
 
         it { is_expected.to contain_class('ec2api::api') }
-
+        it { is_expected.to contain_class('ec2api::deps') }
         it { is_expected.to contain_class('ec2api::params') }
 
         config_items.each do |item|

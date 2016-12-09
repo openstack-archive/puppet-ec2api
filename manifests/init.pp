@@ -32,6 +32,12 @@ class ec2api (
   $purge_config     = false,
 ) inherits ::ec2api::params {
 
+  include ::ec2api::deps
+  include ::ec2api::config
+  include ::ec2api::logging
+  include ::ec2api::policy
+  include ::ec2api::db
+
   validate_string($package_ensure)
   validate_bool($package_manage)
   validate_string($package_name)
@@ -41,26 +47,12 @@ class ec2api (
       ensure   => $package_ensure,
       name     => $package_name,
       provider => $package_provider,
+      tag      => ['openstack', 'ec2api-package']
     }
-
-    Package['ec2api'] ->
-    Class['ec2api::config']
   }
 
   resources { 'ec2api_config':
     purge => $purge_config,
   }
-
-  include '::ec2api::config'
-  include '::ec2api::logging'
-  include '::ec2api::policy'
-  include '::ec2api::db'
-
-  anchor { 'ec2api-start' :} ->
-  Class['ec2api::config'] ->
-  Class['ec2api::db'] ->
-  Class['ec2api::policy'] ->
-  Class['ec2api::logging'] ->
-  anchor { 'ec2api-end' :}
 
 }

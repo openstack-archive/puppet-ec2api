@@ -51,6 +51,9 @@ class ec2api::db::mysql (
   $collate       = 'utf8_general_ci',
   $allowed_hosts = undef
 ) {
+
+  include ::ec2api::deps
+
   validate_string($password)
   validate_string($dbname)
   validate_string($user)
@@ -68,6 +71,8 @@ class ec2api::db::mysql (
     allowed_hosts => $allowed_hosts,
   }
 
-  ::Openstacklib::Db::Mysql['ec2api'] ~>
-  Exec<| title == 'ec2api_db_sync' |>
+  Anchor['ec2api::db::begin']
+  ~> Class['ec2api::db::mysql']
+  ~> Anchor['ec2api::db::end']
+
 }

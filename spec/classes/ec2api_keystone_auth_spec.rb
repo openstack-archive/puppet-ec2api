@@ -19,6 +19,8 @@ describe 'ec2api::keystone::auth' do
 
         it { is_expected.to contain_class('ec2api::params') }
 
+        it { is_expected.to contain_class('ec2api::deps') }
+
         it do
           parameters = {
               :configure_user => true,

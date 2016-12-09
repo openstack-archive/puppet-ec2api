@@ -222,6 +222,8 @@ class ec2api::keystone::authtoken(
   $token_cache_time               = $::os_service_default,
 ) {
 
+  include ::ec2api::deps
+
   keystone::resource::authtoken { 'ec2api_config':
     username                       => $username,
     password                       => $password,

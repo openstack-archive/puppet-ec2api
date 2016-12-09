@@ -28,6 +28,8 @@ class ec2api::policy (
   $policy_path = '/etc/ec2api/policy.json',
 ) {
 
+  include ::ec2api::deps
+
   validate_hash($policies)
   validate_absolute_path($policy_path)
 

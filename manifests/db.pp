@@ -49,6 +49,8 @@ class ec2api::db (
   $database_max_overflow   = $::os_service_default,
 ) {
 
+  include ::ec2api::deps
+
   validate_re($database_connection, '^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?')
 
   oslo::db { 'ec2api_config':

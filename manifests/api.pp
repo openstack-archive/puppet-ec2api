@@ -285,6 +285,8 @@ class ec2api::api (
   $enabled                            = true,
 ) inherits ::ec2api::params {
 
+  include ::ec2api::deps
+
   validate_bool($manage_service)
   validate_string($service_name)
   validate_bool($enabled)
@@ -350,8 +352,5 @@ class ec2api::api (
     hasrestart => true,
     tag        => 'ec2api-service',
   }
-
-  Ec2api_config <||> ~>
-  Service['openstack-ec2-api-service']
 
 }

@@ -40,8 +40,7 @@ class ec2api::db::postgresql (
   $privileges = 'ALL',
 ) {
 
-  Class['ec2api::db::postgresql'] ->
-  Service<| tag == 'ec2api' |>
+  include ::ec2api::deps
 
   ::openstacklib::db::postgresql { 'ec2api':
     password_hash => postgresql_password($user, $password),
@@ -51,6 +50,8 @@ class ec2api::db::postgresql (
     privileges    => $privileges,
   }
 
-  ::Openstacklib::Db::Postgresql['ec2api'] ~>
-  Exec<| title == 'ec2api_db_sync' |>
+  Anchor['ec2api::db::begin']
+  ~> Class['ec2api::db::postgresql']
+  ~> Anchor['ec2api::db::end']
+
 }

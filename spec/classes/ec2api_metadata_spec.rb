@@ -25,6 +25,8 @@ describe 'ec2api::metadata', type: :class do
 
         it { is_expected.to contain_class('ec2api::metadata') }
 
+        it { is_expected.to contain_class('ec2api::deps') }
+
         it { is_expected.to contain_class('ec2api::params') }
 
         config_items.each do |item|

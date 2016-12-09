@@ -23,6 +23,8 @@ describe 'ec2api' do
 
         it { is_expected.to contain_class('ec2api::params') }
 
+        it { is_expected.to contain_class('ec2api::deps') }
+
         it { is_expected.to contain_class('ec2api::config') }
 
         it { is_expected.to contain_class('ec2api::db') }
