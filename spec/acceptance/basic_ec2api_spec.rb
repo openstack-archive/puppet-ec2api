@@ -47,5 +47,14 @@ describe 'basic ec2api' do
       apply_manifest(pp, :catch_changes => true)
     end
 
+    if os[:family].casecmp('RedHat') == 0
+      describe port(8788) do
+        it { is_expected.to be_listening }
+      end
+      describe port(8789) do
+        it { is_expected.to be_listening }
+      end
+    end
+
   end
 end
