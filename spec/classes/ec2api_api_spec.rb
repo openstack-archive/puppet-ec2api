@@ -8,7 +8,6 @@ describe 'ec2api::api', type: :class do
       let(:facts) { facts.merge! @default_facts }
 
       config_items = %w(
-        DEFAULT/keystone_url
         DEFAULT/keystone_ec2_tokens_url
         DEFAULT/ec2_timestamp_expiry
         DEFAULT/ec2api_listen

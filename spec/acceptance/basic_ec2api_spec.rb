@@ -31,9 +31,7 @@ describe 'basic ec2api' do
           class { '::ec2api::keystone::authtoken':
             password => 'a_big_secret',
           }
-          class { '::ec2api::api':
-            keystone_url => 'http://127.0.0.1:5000/v2',
-          }
+          class { '::ec2api::api': }
           include ::ec2api::metadata
         }
         default: {

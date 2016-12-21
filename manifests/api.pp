@@ -10,10 +10,6 @@
 #
 # === API
 #
-# [*keystone_url*]
-#   URL for getting admin session.
-#   Default: $::os_service_default
-#
 # [*keystone_ec2_tokens_url*]
 #   URL to authenticate token from ec2 request.
 #   Default: $::os_service_default
@@ -226,7 +222,6 @@
 #
 class ec2api::api (
   # API
-  $keystone_url                       = $::os_service_default,
   $keystone_ec2_tokens_url            = $::os_service_default,
   $ec2_timestamp_expiry               = $::os_service_default,
   # Service
@@ -292,7 +287,6 @@ class ec2api::api (
   validate_bool($enabled)
 
   ec2api_config {
-    'DEFAULT/keystone_url':                            value => $keystone_url;
     'DEFAULT/keystone_ec2_tokens_url':                 value => $keystone_ec2_tokens_url;
     'DEFAULT/ec2_timestamp_expiry':                    value => $ec2_timestamp_expiry;
     'DEFAULT/ec2api_listen':                           value => $ec2api_listen;
