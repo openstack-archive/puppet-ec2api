@@ -6,3 +6,4 @@ puppet-ec2api Release Notes
    :maxdepth: 1
 
    unreleased
+   ocata
