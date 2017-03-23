@@ -24,6 +24,10 @@ class ec2api::deps {
   ~> Service<| tag == 'ec2api-service' |>
   ~> anchor { 'ec2api::service::end': }
 
+  # all db settings should be applied and all packages should be installed
+  # before dbsync starts
+  Oslo::Db<||> -> Anchor['ec2api::dbsync::begin']
+
   # policy config should occur in the config block also.
   Anchor['ec2api::config::begin']
   -> Openstacklib::Policy::Base<||>
