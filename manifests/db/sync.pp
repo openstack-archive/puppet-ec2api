@@ -27,6 +27,7 @@ class ec2api::db::sync (
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,
+    logoutput   => on_failure,
     subscribe   => [
       Anchor['ec2api::install::end'],
       Anchor['ec2api::config::end'],

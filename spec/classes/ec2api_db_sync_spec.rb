@@ -13,6 +13,7 @@ describe 'ec2api::db::sync' do
           :user        => 'ec2api',
           :group       => 'ec2api',
           :refreshonly => true,
+          :logoutput   => 'on_failure',
           :subscribe   => [
             'Anchor[ec2api::install::end]',
             'Anchor[ec2api::config::end]',
