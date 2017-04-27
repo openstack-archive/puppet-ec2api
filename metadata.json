@@ -1,6 +1,6 @@
 {
   "name": "openstack-ec2api",
-  "version": "10.3.0",
+  "version": "10.3.1",
   "author": "OpenStack Contributors",
   "summary": "Puppet module for OpenStack Ec2api",
   "license": "Apache-2.0",
