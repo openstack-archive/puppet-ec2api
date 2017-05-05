@@ -27,6 +27,9 @@ describe 'basic ec2api' do
           class { '::ec2api::db':
             database_connection => 'mysql://ec2api:a_big_secret@127.0.0.1/ec2api?charset=utf8',
           }
+          class { '::ec2api::logging':
+            debug => true,
+          }
           class { '::ec2api': }
           class { '::ec2api::keystone::authtoken':
             password => 'a_big_secret',
