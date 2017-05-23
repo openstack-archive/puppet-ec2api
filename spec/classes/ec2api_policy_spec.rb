@@ -20,7 +20,9 @@ describe 'ec2api::policy' do
         :key   => 'context_is_admin',
         :value => 'foo:bar'
       })
-      is_expected.to contain_ec2api_config('oslo_policy/policy_file').with_value('/etc/ec2api/policy.json')
+      is_expected.to contain_oslo__policy('ec2api_config').with(
+        :policy_file => '/etc/ec2api/policy.json',
+      )
     end
   end
 
