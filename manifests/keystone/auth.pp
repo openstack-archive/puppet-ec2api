@@ -86,8 +86,8 @@ class ec2api::keystone::auth (
   }
 
   if $configure_endpoint {
-    Keystone_endpoint["${region}/${real_service_name}::${service_type}"] ~>
-    Anchor['ec2api::service::end']
+    Keystone_endpoint["${region}/${real_service_name}::${service_type}"]
+    ~> Anchor['ec2api::service::end']
   }
 
   keystone::resource::service_identity { 'ec2api':
