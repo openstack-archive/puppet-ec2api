@@ -7,6 +7,6 @@
 # environment (to compare the resulting system state to the desired state).
 #
 # Learn more about module testing here:
-# http://docs.puppetlabs.com/guides/tests_smoke.html
+# https://docs.puppet.com/puppet/latest/tests_smoke.html
 #
 include ::ec2api
