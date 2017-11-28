@@ -12,6 +12,10 @@
 #    (Optional) Use syslog for logging.
 #    Defaults to $::os_service_default
 #
+#  [*use_json*]
+#    (Optional) Use json for logging.
+#    Defaults to $::os_service_default
+#
 #  [*use_stderr*]
 #    (optional) Use stderr for logging
 #    Defaults to $::os_service_default
@@ -95,6 +99,7 @@
 #
 class ec2api::logging(
   $use_syslog                    = $::os_service_default,
+  $use_json                      = $::os_service_default,
   $use_stderr                    = $::os_service_default,
   $log_facility                  = $::os_service_default,
   $log_dir                       = '/var/log/ec2api',
@@ -118,6 +123,7 @@ class ec2api::logging(
   oslo::log { 'ec2api_config':
     use_stderr                    => $use_stderr,
     use_syslog                    => $use_syslog,
+    use_json                      => $use_json,
     log_dir                       => $log_dir,
     log_file                      => $log_file,
     debug                         => $debug,
