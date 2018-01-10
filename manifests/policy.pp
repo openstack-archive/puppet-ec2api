@@ -29,12 +29,14 @@ class ec2api::policy (
 ) {
 
   include ::ec2api::deps
+  include ::ec2api::params
 
   validate_hash($policies)
-  validate_absolute_path($policy_path)
 
   Openstacklib::Policy::Base {
-    file_path => $policy_path,
+    file_path  => $policy_path,
+    file_user  => 'root',
+    file_group => $::ec2api::params::group,
   }
 
   create_resources('openstacklib::policy::base', $policies)

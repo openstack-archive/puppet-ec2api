@@ -17,8 +17,10 @@ describe 'ec2api::policy' do
 
     it 'set up the policies' do
       is_expected.to contain_openstacklib__policy__base('context_is_admin').with({
-        :key   => 'context_is_admin',
-        :value => 'foo:bar'
+        :key        => 'context_is_admin',
+        :value      => 'foo:bar',
+        :file_user  => 'root',
+        :file_group => 'ec2api',
       })
       is_expected.to contain_oslo__policy('ec2api_config').with(
         :policy_file => '/etc/ec2api/policy.json',
@@ -37,5 +39,4 @@ describe 'ec2api::policy' do
       it_configures 'ec2api policies'
     end
   end
-
 end
