@@ -34,6 +34,7 @@ class ec2api::db::sync (
       Anchor['ec2api::dbsync::begin']
     ],
     notify      => Anchor['ec2api::dbsync::end'],
+    tag         => 'openstack-db',
   }
 
 }
