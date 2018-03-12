@@ -20,6 +20,7 @@ describe 'ec2api::db::sync' do
             'Anchor[ec2api::dbsync::begin]'
           ],
           :notify      => 'Anchor[ec2api::dbsync::end]',
+          :tag         => 'openstack-db',
         }
 
         it { is_expected.to compile.with_all_deps }
