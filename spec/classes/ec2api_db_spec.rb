@@ -20,6 +20,7 @@ describe 'ec2api::db' do
             :retry_interval => '<SERVICE DEFAULT>',
             :max_pool_size  => '<SERVICE DEFAULT>',
             :max_overflow   => '<SERVICE DEFAULT>',
+            :pool_timeout   => '<SERVICE DEFAULT>',
         }
 
         it { is_expected.to contain_oslo__db('ec2api_config').with(parameters) }
@@ -36,6 +37,7 @@ describe 'ec2api::db' do
               :database_retry_interval => '4',
               :database_max_pool_size  => '5',
               :database_max_overflow   => '6',
+              :database_pool_timeout   => '6',
           }
         end
 
@@ -52,6 +54,7 @@ describe 'ec2api::db' do
             :retry_interval => '4',
             :max_pool_size  => '5',
             :max_overflow   => '6',
+            :pool_timeout   => '6',
         }
 
         it { is_expected.to contain_oslo__db('ec2api_config').with(parameters) }
