@@ -177,15 +177,6 @@
 #   (in seconds). Set to -1 to disable caching completely. Integer value
 #   Defaults to $::os_service_default.
 #
-# DEPRECATED PARAMETERS
-#
-# [*revocation_cache_time*]
-#   (Optional) Determines the frequency at which the list of revoked tokens is
-#   retrieved from the Identity service (in seconds). A high number of
-#   revocation events combined with a low cache duration may significantly
-#   reduce performance. Only valid for PKI tokens. Integer value
-#   Defaults to undef
-#
 class ec2api::keystone::authtoken(
   $password,
   $username                       = 'ec2api',
@@ -221,15 +212,9 @@ class ec2api::keystone::authtoken(
   $manage_memcache_package        = false,
   $region_name                    = $::os_service_default,
   $token_cache_time               = $::os_service_default,
-  # DEPRECATED PARAMETERS
-  $revocation_cache_time          = undef,
 ) {
 
   include ::ec2api::deps
-
-  if $revocation_cache_time {
-    warning('revocation_cache_time parameter is deprecated, has no effect and will be removed in the future.')
-  }
 
   keystone::resource::authtoken { 'ec2api_config':
     username                       => $username,
