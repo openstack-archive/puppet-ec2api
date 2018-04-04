@@ -106,7 +106,7 @@ class ec2api::metadata (
     'metadata/auth_ca_cert':                 value => $auth_ca_cert;
     'metadata/nova_client_cert':             value => $nova_client_cert;
     'metadata/nova_client_priv_key':         value => $nova_client_priv_key;
-    'metadata/metadata_proxy_shared_secret': value => $metadata_proxy_shared_secret;
+    'metadata/metadata_proxy_shared_secret': value => $metadata_proxy_shared_secret, secret => true;
     'DEFAULT/metadata_listen':               value => $metadata_listen;
     'DEFAULT/metadata_listen_port':          value => $metadata_listen_port;
     'DEFAULT/metadata_use_ssl':              value => $metadata_use_ssl;
