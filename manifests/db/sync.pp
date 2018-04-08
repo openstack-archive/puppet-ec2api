@@ -15,7 +15,7 @@
 class ec2api::db::sync (
   $system_user  = 'ec2api',
   $system_group = 'ec2api',
-) inherits ::ec2api::params {
+) {
 
   include ::ec2api::deps
 
