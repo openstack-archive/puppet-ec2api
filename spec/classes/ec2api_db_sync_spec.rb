@@ -29,8 +29,6 @@ describe 'ec2api::db::sync' do
 
         it { is_expected.to contain_class('ec2api::db::sync') }
 
-        it { is_expected.to contain_class('ec2api::params') }
-
         it { is_expected.to contain_class('ec2api::deps') }
 
         it { is_expected.to contain_exec('ec2api_db_sync').with(exec_parameters) }
