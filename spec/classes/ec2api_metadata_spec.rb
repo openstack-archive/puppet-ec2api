@@ -14,7 +14,6 @@ describe 'ec2api::metadata', type: :class do
         metadata/auth_ca_cert
         metadata/nova_client_cert
         metadata/nova_client_priv_key
-        metadata/metadata_proxy_shared_secret
         DEFAULT/metadata_listen
         DEFAULT/metadata_listen_port
         DEFAULT/metadata_use_ssl
@@ -35,6 +34,10 @@ describe 'ec2api::metadata', type: :class do
 
         it 'configures workers using os_workers' do
           is_expected.to contain_ec2api_config('DEFAULT/metadata_workers').with_value(2)
+        end
+
+        it 'configures metadata_proxy_shared_secret' do
+          is_expected.to contain_ec2api_config('metadata/metadata_proxy_shared_secret').with_value('<SERVICE DEFAULT>').with_secret(true)
         end
 
         service_parameters = {
