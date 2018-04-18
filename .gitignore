@@ -8,8 +8,8 @@ coverage/
 .idea/
 *.swp
 *.iml
-openstack/
-log/
+/openstack
+/log
 
 # Files created by releasenotes build
 releasenotes/build
