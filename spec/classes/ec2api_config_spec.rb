@@ -16,6 +16,8 @@ describe 'ec2api::config' do
     }
   end
 
+  it { is_expected.to contain_class('ec2api::deps') }
+
   it 'configures arbitrary ec2api configurations' do
     is_expected.to contain_ec2api_config('DEFAULT/foo').with_value('fooValue')
     is_expected.to contain_ec2api_config('DEFAULT/bar').with_value('barValue')
