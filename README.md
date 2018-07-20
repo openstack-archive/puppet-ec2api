@@ -88,3 +88,10 @@ Release Notes
 -------------
 
 * https://docs.openstack.org/releasenotes/puppet-ec2api
+
+Repository
+-------------
+
+* https://git.openstack.org/cgit/openstack/puppet-ec2api
+
+
