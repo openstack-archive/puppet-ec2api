@@ -31,8 +31,6 @@ describe 'ec2api' do
 
         it { is_expected.to contain_class('ec2api::policy') }
 
-        it { is_expected.to contain_class('ec2api::logging') }
-
         it { is_expected.to contain_package('ec2api') }
       end
 
