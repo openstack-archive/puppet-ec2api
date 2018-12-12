@@ -34,7 +34,6 @@ class ec2api (
 
   include ::ec2api::deps
   include ::ec2api::config
-  include ::ec2api::logging
   include ::ec2api::policy
   include ::ec2api::db
 
