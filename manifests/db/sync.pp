@@ -5,12 +5,12 @@
 # === Parameters
 #
 # [*system_user*]
-#   Run db_sync from this system user account.
-#   Default: ec2api
+#   (Optional) Run db_sync from this system user account.
+#   Default to ec2api
 #
 # [*system_group*]
-#   Run db_sync by this system group.
-#   Default: ec2api
+#   (Optional) Run db_sync by this system group.
+#   Default to ec2api
 #
 class ec2api::db::sync (
   $system_user  = 'ec2api',

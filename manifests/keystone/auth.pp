@@ -5,52 +5,61 @@
 # === Parameters
 #
 # [*password*]
-#   (required) Password for ec2api user.
+#   (Required) Password for ec2api user.
 #
 # [*auth_name*]
-#   Username for ec2api service. Defaults to 'ec2api'.
+#   (Optional) Username for ec2api service.
+#   Defaults to 'ec2api'.
 #
 # [*email*]
-#   Email for ec2api user. Defaults to 'ec2api@localhost'.
+#   (Optional) Email for ec2api user.
+#   Defaults to 'ec2api@localhost'.
 #
 # [*tenant*]
-#   Tenant for ec2api user. Defaults to 'services'.
+#  (Optional) Tenant for ec2api user.
+#  Defaults to 'services'.
 #
 # [*configure_endpoint*]
-#   Should ec2api endpoint be configured? Defaults to 'true'.
+#   (Optional) Should ec2api endpoint be configured?
+#   Defaults to true
 #
 # [*configure_user*]
 #   (Optional) Should the service user be configured?
-#   Defaults to 'true'.
+#   Defaults to true
 #
 # [*configure_user_role*]
 #   (Optional) Should the admin role be configured for the service user?
-#   Defaults to 'true'.
+#   Defaults to true
 #
 # [*service_type*]
-#   Type of service. Defaults to 'ec2api'.
+#   (Optional) Type of service.
+#   Defaults to 'ec2api'.
 #
 # [*region*]
-#   Region for endpoint. Defaults to 'RegionOne'.
+#   (Optional) Region for endpoint.
+#   Defaults to 'RegionOne'.
 #
 # [*service_name*]
-#   (optional) Name of the service.
+#   (Optional) Name of the service.
 #   Defaults to the value of auth_name.
 #
 # [*service_description*]
-#   (optional) Description of the service.
+#   (Optional) Description of the service.
 #   Defaults to the value of 'ec2api Service'.
 #
 # [*public_url*]
-#   (optional) The endpoint's public url. (Defaults to 'http://127.0.0.1:8788')
+#   (0ptional) The endpoint's public url.
 #   This url should *not* contain any trailing '/'.
+#   Defaults to 'http://127.0.0.1:8788'
 #
 # [*admin_url*]
-#   (optional) The endpoint's admin url. (Defaults to 'http://127.0.0.1:8788')
+#   (Optional) The endpoint's admin url.
 #   This url should *not* contain any trailing '/'.
+#   Defaults to 'http://127.0.0.1:8788'
 #
 # [*internal_url*]
-#   (optional) The endpoint's internal url. (Defaults to 'http://127.0.0.1:8788')
+#   (Optional) The endpoint's internal url.
+#   Defaults to 'http://127.0.0.1:8788'
 #
 class ec2api::keystone::auth (
   $password,

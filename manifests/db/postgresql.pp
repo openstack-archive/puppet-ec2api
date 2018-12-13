@@ -24,14 +24,6 @@
 #   (Optional) Privileges given to the database user.
 #   Default to 'ALL'
 #
-# == Dependencies
-#
-# == Examples
-#
-# == Authors
-#
-# == Copyright
-#
 class ec2api::db::postgresql (
   $password,
   $user       = 'ec2api',
