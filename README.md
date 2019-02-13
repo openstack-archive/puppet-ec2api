@@ -33,7 +33,7 @@ Setup
 
 **What the ec2api module affects**
 
-* [Ec2api](https://wiki.openstack.org/wiki/Ec2api), the EC2 API service for OpenStack.
+* [Ec2api](https://docs.openstack.org/ec-2api/latest/), the EC2 API service for OpenStack.
 
 ### Installing ec2api
 
