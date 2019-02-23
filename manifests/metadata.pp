@@ -94,9 +94,9 @@ class ec2api::metadata (
 
   include ::ec2api::deps
 
-  validate_bool($manage_service)
-  validate_string($service_name)
-  validate_bool($enabled)
+  validate_legacy(Boolean, 'validate_bool', $manage_service)
+  validate_legacy(String, 'validate_string', $service_name)
+  validate_legacy(Boolean, 'validate_bool', $enabled)
 
   ec2api_config {
     'metadata/nova_metadata_ip':             value => $nova_metadata_ip;

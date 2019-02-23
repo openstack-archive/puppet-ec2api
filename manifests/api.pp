@@ -282,9 +282,9 @@ class ec2api::api (
 
   include ::ec2api::deps
 
-  validate_bool($manage_service)
-  validate_string($service_name)
-  validate_bool($enabled)
+  validate_legacy(Boolean, 'validate_bool', $manage_service)
+  validate_legacy(String, 'validate_string', $service_name)
+  validate_legacy(Boolean, 'validate_bool', $enabled)
 
   ec2api_config {
     'DEFAULT/keystone_ec2_tokens_url':            value => $keystone_ec2_tokens_url;

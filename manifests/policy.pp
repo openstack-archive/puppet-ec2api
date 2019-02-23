@@ -31,7 +31,7 @@ class ec2api::policy (
   include ::ec2api::deps
   include ::ec2api::params
 
-  validate_hash($policies)
+  validate_legacy(Hash, 'validate_hash', $policies)
 
   Openstacklib::Policy::Base {
     file_path  => $policy_path,

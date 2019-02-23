@@ -30,8 +30,8 @@ class ec2api::config (
 
   include ::ec2api::deps
 
-  validate_hash($ec2api_config)
-  validate_hash($ec2api_api_paste_ini)
+  validate_legacy(Hash, 'validate_hash', $ec2api_config)
+  validate_legacy(Hash, 'validate_hash', $ec2api_api_paste_ini)
 
   create_resources('ec2api_config', $ec2api_config)
   create_resources('ec2api_api_paste_ini', $ec2api_api_paste_ini)

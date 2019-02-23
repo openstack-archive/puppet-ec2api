@@ -45,12 +45,12 @@ class ec2api::db::mysql (
 
   include ::ec2api::deps
 
-  validate_string($password)
-  validate_string($dbname)
-  validate_string($user)
-  validate_string($host)
-  validate_string($charset)
-  validate_string($collate)
+  validate_legacy(String, 'validate_string', $password)
+  validate_legacy(String, 'validate_string', $dbname)
+  validate_legacy(String, 'validate_string', $user)
+  validate_legacy(String, 'validate_string', $host)
+  validate_legacy(String, 'validate_string', $charset)
+  validate_legacy(String, 'validate_string', $collate)
 
   ::openstacklib::db::mysql { 'ec2api':
     user          => $user,

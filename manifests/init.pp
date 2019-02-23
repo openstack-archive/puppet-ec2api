@@ -37,9 +37,9 @@ class ec2api (
   include ::ec2api::policy
   include ::ec2api::db
 
-  validate_string($package_ensure)
-  validate_bool($package_manage)
-  validate_string($package_name)
+  validate_legacy(String, 'validate_string', $package_ensure)
+  validate_legacy(Boolean, 'validate_bool', $package_manage)
+  validate_legacy(String, 'validate_string', $package_name)
 
   if $package_manage {
     package { 'ec2api' :
