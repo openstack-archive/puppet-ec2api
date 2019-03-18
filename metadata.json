@@ -15,15 +15,15 @@
         },
         {
             "name": "openstack/openstacklib",
-            "version_requirement": ">=14.3.0 <15.0.0"
+            "version_requirement": ">=14.4.0 <15.0.0"
         },
         {
             "name": "openstack/keystone",
-            "version_requirement": ">=14.3.0 <15.0.0"
+            "version_requirement": ">=14.4.0 <15.0.0"
         },
         {
             "name": "openstack/oslo",
-            "version_requirement": ">=14.3.0 <15.0.0"
+            "version_requirement": ">=14.4.0 <15.0.0"
         }
     ],
     "description": "Installs and configures OpenStack Ec2api.",
@@ -65,5 +65,5 @@
     ],
     "source": "git://github.com/openstack/puppet-ec2api.git",
     "summary": "Puppet module for OpenStack Ec2api",
-    "version": "14.3.0"
+    "version": "14.4.0"
 }
