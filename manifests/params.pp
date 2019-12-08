@@ -4,7 +4,7 @@
 # should be considered to be constant
 #
 class ec2api::params {
-  include ::openstacklib::defaults
+  include openstacklib::defaults
   $group = 'ec2api'
   case $::osfamily {
     'RedHat': {

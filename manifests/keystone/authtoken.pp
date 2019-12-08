@@ -202,7 +202,7 @@ class ec2api::keystone::authtoken(
   $service_token_roles_required   = $::os_service_default,
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   keystone::resource::authtoken { 'ec2api_config':
     username                       => $username,

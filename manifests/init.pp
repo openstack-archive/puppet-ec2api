@@ -32,10 +32,10 @@ class ec2api (
   $purge_config     = false,
 ) inherits ::ec2api::params {
 
-  include ::ec2api::deps
-  include ::ec2api::config
-  include ::ec2api::policy
-  include ::ec2api::db
+  include ec2api::deps
+  include ec2api::config
+  include ec2api::policy
+  include ec2api::db
 
   validate_legacy(String, 'validate_string', $package_ensure)
   validate_legacy(Boolean, 'validate_bool', $package_manage)

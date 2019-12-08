@@ -17,7 +17,7 @@ class ec2api::db::sync (
   $system_group = 'ec2api',
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   exec { 'ec2api_db_sync' :
     command     => 'ec2-api-manage db_sync',

@@ -123,7 +123,7 @@ class ec2api::logging(
   $log_date_format               = $::os_service_default,
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   oslo::log { 'ec2api_config':
     use_stderr                    => $use_stderr,

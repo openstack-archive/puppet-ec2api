@@ -43,7 +43,7 @@ class ec2api::db::mysql (
   $allowed_hosts = undef
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   validate_legacy(String, 'validate_string', $password)
   validate_legacy(String, 'validate_string', $dbname)

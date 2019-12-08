@@ -32,7 +32,7 @@ class ec2api::db::postgresql (
   $privileges = 'ALL',
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   ::openstacklib::db::postgresql { 'ec2api':
     password_hash => postgresql_password($user, $password),

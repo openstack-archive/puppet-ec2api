@@ -28,8 +28,8 @@ class ec2api::policy (
   $policy_path = '/etc/ec2api/policy.json',
 ) {
 
-  include ::ec2api::deps
-  include ::ec2api::params
+  include ec2api::deps
+  include ec2api::params
 
   validate_legacy(Hash, 'validate_hash', $policies)
 

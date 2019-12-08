@@ -78,7 +78,7 @@ class ec2api::keystone::auth (
   $internal_url        = 'http://127.0.0.1:8788',
 ) inherits ::ec2api::params {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   validate_legacy(String, 'validate_string', $password)
   validate_legacy(String, 'validate_string', $auth_name)

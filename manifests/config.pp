@@ -28,7 +28,7 @@ class ec2api::config (
   $ec2api_api_paste_ini = {},
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   validate_legacy(Hash, 'validate_hash', $ec2api_config)
   validate_legacy(Hash, 'validate_hash', $ec2api_api_paste_ini)

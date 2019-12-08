@@ -92,7 +92,7 @@ class ec2api::metadata (
   $enabled                      = true,
 ) inherits ::ec2api::params {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   validate_legacy(Boolean, 'validate_bool', $manage_service)
   validate_legacy(String, 'validate_string', $service_name)

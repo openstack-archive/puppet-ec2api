@@ -62,7 +62,7 @@ class ec2api::db (
   $database_idle_timeout            = undef,
 ) {
 
-  include ::ec2api::deps
+  include ec2api::deps
 
   validate_legacy(Oslo::Dbconn, 'validate_re', $database_connection,
     ['^(sqlite|mysql(\+pymysql)?|postgresql):\/\/(\S+:\S+@\S+\/\S+)?'])
