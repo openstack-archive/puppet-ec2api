@@ -8,7 +8,6 @@ describe 'ec2api::db' do
       it { should contain_oslo__db('ec2api_config').with(
         :connection              => 'sqlite:////var/lib/ec2api/ec2api.sqlite',
         :connection_recycle_time => '<SERVICE DEFAULT>',
-        :min_pool_size           => '<SERVICE DEFAULT>',
         :db_max_retries          => '<SERVICE DEFAULT>',
         :max_retries             => '<SERVICE DEFAULT>',
         :retry_interval          => '<SERVICE DEFAULT>',
@@ -23,7 +22,6 @@ describe 'ec2api::db' do
         {
           :database_connection              => 'sqlite:////path/to/my/db.sqlite',
           :database_connection_recycle_time => '1',
-          :database_min_pool_size           => '2',
           :database_db_max_retries          => '-1',
           :database_max_retries             => '3',
           :database_retry_interval          => '4',
@@ -38,7 +36,6 @@ describe 'ec2api::db' do
       it { should contain_oslo__db('ec2api_config').with(
         :connection              => 'sqlite:////path/to/my/db.sqlite',
         :connection_recycle_time => '1',
-        :min_pool_size           => '2',
         :db_max_retries          => '-1',
         :max_retries             => '3',
         :retry_interval          => '4',
