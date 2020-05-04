@@ -1,32 +1,5 @@
 require 'puppet'
 require 'puppet/type/ec2api_config'
-require 'spec_helper'
-
-#
-# these tests are a little concerning b/c they are hacking around the
-# modulepath, so these tests will not catch issues that may eventually arise
-# related to loading these plugins.
-# I could not, for the life of me, figure out how to programatcally set the modulepath
-$LOAD_PATH.push(
-    File.join(
-        File.dirname(__FILE__),
-        '..',
-        '..',
-        'fixtures',
-        'modules',
-        'inifile',
-        'lib')
-)
-$LOAD_PATH.push(
-    File.join(
-        File.dirname(__FILE__),
-        '..',
-        '..',
-        'fixtures',
-        'modules',
-        'openstacklib',
-        'lib')
-)
 
 describe Puppet::Type.type(:ec2api_config) do
   before :each do
@@ -80,11 +53,11 @@ describe Puppet::Type.type(:ec2api_config) do
 
   it 'should autorequire the package that install the file' do
     catalog = Puppet::Resource::Catalog.new
-    package = Puppet::Type.type(:package).new(:name => 'ec2api')
-    catalog.add_resource package, @ec2api_config
+    anchor = Puppet::Type.type(:anchor).new(:name => 'ec2api::install::end')
+    catalog.add_resource anchor, @ec2api_config
     dependency = @ec2api_config.autorequire
     expect(dependency.size).to eq(1)
     expect(dependency[0].target).to eq(@ec2api_config)
-    expect(dependency[0].source).to eq(package)
+    expect(dependency[0].source).to eq(anchor)
   end
 end

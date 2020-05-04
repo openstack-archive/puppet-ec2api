@@ -49,8 +49,8 @@ Puppet::Type.newtype(:ec2api_api_paste_ini) do
     defaultto('<SERVICE DEFAULT>')
   end
 
-  autorequire(:package) do
-    'ec2api'
+  autorequire(:anchor) do
+    ['ec2api::install::end']
   end
 
 end
