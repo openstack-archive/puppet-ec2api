@@ -14,6 +14,7 @@ describe 'ec2api::db' do
         :max_pool_size           => '<SERVICE DEFAULT>',
         :max_overflow            => '<SERVICE DEFAULT>',
         :pool_timeout            => '<SERVICE DEFAULT>',
+        :mysql_enable_ndb        => '<SERVICE DEFAULT>',
       )}
     end
 
@@ -28,6 +29,7 @@ describe 'ec2api::db' do
           :database_max_pool_size           => '5',
           :database_max_overflow            => '6',
           :database_pool_timeout            => '7',
+          :mysql_enable_ndb                 => true, 
         }
       end
 
@@ -42,6 +44,7 @@ describe 'ec2api::db' do
         :max_pool_size           => '5',
         :max_overflow            => '6',
         :pool_timeout            => '7',
+        :mysql_enable_ndb        => true,
       )}
     end
   end
