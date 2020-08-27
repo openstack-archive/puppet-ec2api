@@ -38,6 +38,11 @@
 #   (Optional) If set, use this value for pool_timeout with SQLAlchemy.
 #   Defaults to $::os_service_default
 #
+# [*mysql_enable_ndb*]
+#   (Optional) If True, transparently enables support for handling MySQL
+#   Cluster (NDB).
+#   Defaults to $::os_service_default
+#
 # DEPRECATED PARAMETERS
 #
 # [*database_min_pool_size*]
@@ -53,6 +58,7 @@ class ec2api::db (
   $database_retry_interval          = $::os_service_default,
   $database_max_overflow            = $::os_service_default,
   $database_pool_timeout            = $::os_service_default,
+  $mysql_enable_ndb                 = $::os_service_default,
   # DEPRECATED PARAMETERS
   $database_min_pool_size           = undef,
 ) {
@@ -75,6 +81,7 @@ class ec2api::db (
     max_pool_size           => $database_max_pool_size,
     max_overflow            => $database_max_overflow,
     pool_timeout            => $database_pool_timeout,
+    mysql_enable_ndb        => $mysql_enable_ndb,
   }
 
 }
