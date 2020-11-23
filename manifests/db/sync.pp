@@ -12,9 +12,14 @@
 #   (Optional) Run db_sync by this system group.
 #   Default to ec2api
 #
+# [*db_sync_timeout*]
+#   (Optional) Timeout for the execution of the db_sync
+#   Defaults to 300
+#
 class ec2api::db::sync (
-  $system_user  = 'ec2api',
-  $system_group = 'ec2api',
+  $system_user     = 'ec2api',
+  $system_group    = 'ec2api',
+  $db_sync_timeout = 300,
 ) {
 
   include ec2api::deps
@@ -27,6 +32,7 @@ class ec2api::db::sync (
     refreshonly => true,
     try_sleep   => 5,
     tries       => 10,
+    timeout     => $db_sync_timeout,
     logoutput   => on_failure,
     subscribe   => [
       Anchor['ec2api::install::end'],
