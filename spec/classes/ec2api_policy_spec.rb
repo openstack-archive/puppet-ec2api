@@ -5,7 +5,7 @@ describe 'ec2api::policy' do
   shared_examples_for 'ec2api policies' do
     let :params do
       {
-        :policy_path => '/etc/ec2api/policy.json',
+        :policy_path => '/etc/ec2api/policy.yaml',
         :policies    => {
           'context_is_admin' => {
             'key'   => 'context_is_admin',
@@ -17,13 +17,14 @@ describe 'ec2api::policy' do
 
     it 'set up the policies' do
       is_expected.to contain_openstacklib__policy__base('context_is_admin').with({
-        :key        => 'context_is_admin',
-        :value      => 'foo:bar',
-        :file_user  => 'root',
-        :file_group => 'ec2api',
+        :key         => 'context_is_admin',
+        :value       => 'foo:bar',
+        :file_user   => 'root',
+        :file_group  => 'ec2api',
+        :file_format => 'yaml',
       })
       is_expected.to contain_oslo__policy('ec2api_config').with(
-        :policy_file => '/etc/ec2api/policy.json',
+        :policy_file => '/etc/ec2api/policy.yaml',
       )
     end
   end
