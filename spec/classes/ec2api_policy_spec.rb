@@ -4,9 +4,10 @@ describe 'ec2api::policy' do
   shared_examples 'ec2api::policy' do
     let :params do
       {
-        :enforce_scope => false,
-        :policy_path   => '/etc/ec2api/policy.yaml',
-        :policies      => {
+        :enforce_scope        => false,
+        :enforce_new_defaults => false,
+        :policy_path          => '/etc/ec2api/policy.yaml',
+        :policies             => {
           'context_is_admin' => {
             'key'   => 'context_is_admin',
             'value' => 'foo:bar'
@@ -24,8 +25,9 @@ describe 'ec2api::policy' do
         :file_format => 'yaml',
       })
       is_expected.to contain_oslo__policy('ec2api_config').with(
-        :enforce_scope => false,
-        :policy_file   => '/etc/ec2api/policy.yaml',
+        :enforce_scope        => false,
+        :enforce_new_defaults => false,
+        :policy_file          => '/etc/ec2api/policy.yaml',
       )
     end
   end
