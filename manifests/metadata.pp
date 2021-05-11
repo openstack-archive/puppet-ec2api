@@ -90,7 +90,7 @@ class ec2api::metadata (
   $manage_service               = true,
   $service_name                 = $::ec2api::params::metadata_service_name,
   $enabled                      = true,
-) inherits ::ec2api::params {
+) inherits ec2api::params {
 
   include ec2api::deps
 

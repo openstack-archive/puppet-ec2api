@@ -278,7 +278,7 @@ class ec2api::api (
   $manage_service                     = true,
   $service_name                       = $::ec2api::params::api_service_name,
   $enabled                            = true,
-) inherits ::ec2api::params {
+) inherits ec2api::params {
 
   include ec2api::deps
 

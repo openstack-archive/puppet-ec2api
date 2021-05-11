@@ -30,7 +30,7 @@ class ec2api (
   $package_name     = $::ec2api::params::package_name,
   $package_provider = undef,
   $purge_config     = false,
-) inherits ::ec2api::params {
+) inherits ec2api::params {
 
   include ec2api::deps
   include ec2api::config

@@ -76,7 +76,7 @@ class ec2api::keystone::auth (
   $public_url          = 'http://127.0.0.1:8788',
   $admin_url           = 'http://127.0.0.1:8788',
   $internal_url        = 'http://127.0.0.1:8788',
-) inherits ::ec2api::params {
+) inherits ec2api::params {
 
   include ec2api::deps
 
