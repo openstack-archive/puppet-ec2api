@@ -37,6 +37,10 @@
 #   (Optional) File where logs should be stored.
 #   Defaults to '/var/log/ec2api/ec2api.log'
 #
+# [*watch_log_file*]
+#   (Optional) Uses logging handler designed to watch file system (boolean value).
+#   Defaults to $::os_service_default
+#
 # [*logging_context_format_string*]
 #   (Optional) Format string to use for log messages with context.
 #   Defaults to $::os_service_default
@@ -109,6 +113,7 @@ class ec2api::logging(
   $log_facility                  = $::os_service_default,
   $log_dir                       = '/var/log/ec2api',
   $log_file                      = '/var/log/ec2api/ec2api.log',
+  $watch_log_file                = $::os_service_default,
   $debug                         = $::os_service_default,
   $logging_context_format_string = $::os_service_default,
   $logging_default_format_string = $::os_service_default,
@@ -132,6 +137,7 @@ class ec2api::logging(
     use_journal                   => $use_journal,
     log_dir                       => $log_dir,
     log_file                      => $log_file,
+    watch_log_file                => $watch_log_file,
     debug                         => $debug,
     logging_context_format_string => $logging_context_format_string,
     logging_default_format_string => $logging_default_format_string,
