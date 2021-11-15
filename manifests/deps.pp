@@ -29,6 +29,10 @@ class ec2api::deps {
   -> Ec2api_api_paste_ini<||>
   ~> Anchor['ec2api::config::end']
 
+  # all cache settings should be applied and all packages should be installed
+  # before service startup
+  Oslo::Cache<||> -> Anchor['ec2api::service::begin']
+
   # all db settings should be applied and all packages should be installed
   # before dbsync starts
   Oslo::Db<||> -> Anchor['ec2api::dbsync::begin']

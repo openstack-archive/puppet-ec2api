@@ -38,6 +38,10 @@
 #   Shared secret to sign instance-id request
 #   Default: $::os_service_default
 #
+# [*cache_expiration*]
+#   The time (in seconds) to cache metadata
+#   Default: $::os_service_default
+#
 # ==== Service
 #
 # [*metadata_listen*]
@@ -81,6 +85,7 @@ class ec2api::metadata (
   $nova_client_cert             = $::os_service_default,
   $nova_client_priv_key         = $::os_service_default,
   $metadata_proxy_shared_secret = $::os_service_default,
+  $cache_expiration             = $::os_service_default,
   # Service
   $metadata_listen              = $::os_service_default,
   $metadata_listen_port         = $::os_service_default,
@@ -107,6 +112,7 @@ class ec2api::metadata (
     'metadata/nova_client_cert':             value => $nova_client_cert;
     'metadata/nova_client_priv_key':         value => $nova_client_priv_key;
     'metadata/metadata_proxy_shared_secret': value => $metadata_proxy_shared_secret, secret => true;
+    'metadata/cache_expiration':             value => $cache_expiration;
     'DEFAULT/metadata_listen':               value => $metadata_listen;
     'DEFAULT/metadata_listen_port':          value => $metadata_listen_port;
     'DEFAULT/metadata_use_ssl':              value => $metadata_use_ssl;

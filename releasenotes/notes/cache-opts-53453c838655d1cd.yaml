@@ -1,0 +1,5 @@
+---
+features:
+  - |
+    Support for configuring metadata caching using ``oslo.cache`` library has
+    been added.
