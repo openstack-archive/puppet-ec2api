@@ -30,7 +30,7 @@ class ec2api::deps {
 
   # policy config should occur in the config block also.
   Anchor['ec2api::config::begin']
-  -> Openstacklib::Policy::Base<||>
+  -> Openstacklib::Policy<||>
   ~> Anchor['ec2api::config::end']
 
   # Installation or config changes will always restart services.
