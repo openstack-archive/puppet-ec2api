@@ -24,6 +24,11 @@ class ec2api::deps {
   ~> Service<| tag == 'ec2api-service' |>
   ~> anchor { 'ec2api::service::end': }
 
+  # paste-api.ini config should occur in the config block also.
+  Anchor['ec2api::config::begin']
+  -> Ec2api_api_paste_ini<||>
+  ~> Anchor['ec2api::config::end']
+
   # all db settings should be applied and all packages should be installed
   # before dbsync starts
   Oslo::Db<||> -> Anchor['ec2api::dbsync::begin']
