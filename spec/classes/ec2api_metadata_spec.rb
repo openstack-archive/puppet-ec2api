@@ -16,6 +16,7 @@ describe 'ec2api::metadata', type: :class do
         metadata/auth_ca_cert
         metadata/nova_client_cert
         metadata/nova_client_priv_key
+        metadata/cache_expiration
         DEFAULT/metadata_listen
         DEFAULT/metadata_listen_port
         DEFAULT/metadata_use_ssl
