@@ -80,14 +80,6 @@ class ec2api::keystone::auth (
 
   include ec2api::deps
 
-  validate_legacy(String, 'validate_string', $password)
-  validate_legacy(String, 'validate_string', $auth_name)
-  validate_legacy(String, 'validate_string', $email)
-  validate_legacy(String, 'validate_string', $tenant)
-  validate_legacy(Boolean, 'validate_bool', $configure_endpoint)
-  validate_legacy(Boolean, 'validate_bool', $configure_user)
-  validate_legacy(Boolean, 'validate_bool', $configure_user_role)
-
   $real_service_name = pick($service_name, $auth_name)
 
   if $configure_user_role {
