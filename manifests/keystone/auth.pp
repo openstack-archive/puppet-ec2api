@@ -97,14 +97,7 @@ class ec2api::keystone::auth (
 
   $real_service_name = pick($service_name, $auth_name)
 
-  if $configure_user_role {
-    Keystone_user_role["${auth_name}@${tenant}"] ~> Anchor['ec2api::service::end']
-  }
-
-  if $configure_endpoint {
-    Keystone_endpoint["${region}/${real_service_name}::${service_type}"]
-    ~> Anchor['ec2api::service::end']
-  }
+  Keystone::Resource::Service_identity['ec2api'] -> Anchor['ec2api::service::end']
 
   keystone::resource::service_identity { 'ec2api':
     configure_user      => $configure_user,
