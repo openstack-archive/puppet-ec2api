@@ -43,12 +43,6 @@
 #   Cluster (NDB).
 #   Defaults to $::os_service_default
 #
-# DEPRECATED PARAMETERS
-#
-# [*database_min_pool_size*]
-#   Minimum number of SQL connections to keep open in a pool.
-#   (Optional) Defaults to undef
-#
 class ec2api::db (
   $database_connection              = 'sqlite:////var/lib/ec2api/ec2api.sqlite',
   $database_connection_recycle_time = $::os_service_default,
@@ -59,15 +53,9 @@ class ec2api::db (
   $database_max_overflow            = $::os_service_default,
   $database_pool_timeout            = $::os_service_default,
   $mysql_enable_ndb                 = $::os_service_default,
-  # DEPRECATED PARAMETERS
-  $database_min_pool_size           = undef,
 ) {
 
   include ec2api::deps
-
-  if $database_min_pool_size {
-    warning('The database_min_pool_size parameter is deprecated, and will be removed in a future release.')
-  }
 
   oslo::db { 'ec2api_config':
     connection              => $database_connection,
