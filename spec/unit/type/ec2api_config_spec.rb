@@ -30,12 +30,12 @@ describe Puppet::Type.type(:ec2api_config) do
 
   it 'should accept a valid value' do
     @ec2api_config[:value] = 'bar'
-    expect(@ec2api_config[:value]).to eq('bar')
+    expect(@ec2api_config[:value]).to eq(['bar'])
   end
 
   it 'should not accept a value with whitespace' do
     @ec2api_config[:value] = 'b ar'
-    expect(@ec2api_config[:value]).to eq('b ar')
+    expect(@ec2api_config[:value]).to eq(['b ar'])
   end
 
   it 'should accept valid ensure values' do
