@@ -49,6 +49,11 @@ Puppet::Type.newtype(:ec2api_api_paste_ini) do
     defaultto('<SERVICE DEFAULT>')
   end
 
+  newparam(:key_val_separator) do
+    desc 'The separator string to use between each setting name and value.'
+    defaultto('=')
+  end
+
   autorequire(:anchor) do
     ['ec2api::install::end']
   end
