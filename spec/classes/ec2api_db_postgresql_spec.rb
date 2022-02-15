@@ -36,7 +36,11 @@ describe 'ec2api::db::postgresql' do
           :concat_basedir => '/var/lib/puppet/concat'
         }))
       end
-      it_behaves_like 'ec2api::db::postgresql'
+
+      # TODO(tkajinam): Remove this once puppet-postgresql supports CentOS 9
+      unless facts[:osfamily] == 'RedHat' and facts[:operatingsystemmajrelease].to_i >= 9
+        it_behaves_like 'ec2api::db::postgresql'
+      end
     end
   end
 
