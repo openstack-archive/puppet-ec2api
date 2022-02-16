@@ -125,15 +125,15 @@ class ec2api::metadata (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'openstack-ec2-metadata-service' :
-    ensure     => $service_ensure,
-    name       => $service_name,
-    enable     => $enabled,
-    hasstatus  => true,
-    hasrestart => true,
-    tag        => 'ec2api-service',
+    service { 'openstack-ec2-metadata-service' :
+      ensure     => $service_ensure,
+      name       => $service_name,
+      enable     => $enabled,
+      hasstatus  => true,
+      hasrestart => true,
+      tag        => 'ec2api-service',
+    }
   }
 
 }

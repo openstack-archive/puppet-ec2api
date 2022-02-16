@@ -336,15 +336,15 @@ class ec2api::api (
     } else {
       $service_ensure = 'stopped'
     }
-  }
 
-  service { 'openstack-ec2-api-service' :
-    ensure     => $service_ensure,
-    name       => $service_name,
-    enable     => $enabled,
-    hasstatus  => true,
-    hasrestart => true,
-    tag        => 'ec2api-service',
+    service { 'openstack-ec2-api-service' :
+      ensure     => $service_ensure,
+      name       => $service_name,
+      enable     => $enabled,
+      hasstatus  => true,
+      hasrestart => true,
+      tag        => 'ec2api-service',
+    }
   }
 
 }
