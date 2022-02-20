@@ -6,21 +6,21 @@
 #
 # [*system_user*]
 #   (Optional) Run db_sync from this system user account.
-#   Default to ec2api
+#   Default to $::ec2api::params::user
 #
 # [*system_group*]
 #   (Optional) Run db_sync by this system group.
-#   Default to ec2api
+#   Default to $::ec2api::params::group
 #
 # [*db_sync_timeout*]
 #   (Optional) Timeout for the execution of the db_sync
 #   Defaults to 300
 #
 class ec2api::db::sync (
-  $system_user     = 'ec2api',
-  $system_group    = 'ec2api',
+  $system_user     = $::ec2api::params::user,
+  $system_group    = $::ec2api::params::group,
   $db_sync_timeout = 300,
-) {
+) inherits ec2api::params {
 
   include ec2api::deps
 
