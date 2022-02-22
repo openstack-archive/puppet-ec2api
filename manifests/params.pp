@@ -5,7 +5,10 @@
 #
 class ec2api::params {
   include openstacklib::defaults
+
+  $user  = 'ec2api'
   $group = 'ec2api'
+
   case $::osfamily {
     'RedHat': {
       $package_name          = 'openstack-ec2-api'
