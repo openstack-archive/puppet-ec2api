@@ -175,13 +175,6 @@
 #   A flavor to use as a default instance type
 #   Default: $::os_service_default
 #
-# === DB
-#
-# [*use_tpool*]
-#   Enable the experimental use of thread pooling for
-#   all DB API calls
-#   Default: $::os_service_default
-#
 # === Exception
 #
 # [*fatal_exception_format_errors*]
@@ -219,6 +212,13 @@
 # [*enabled*]
 #   Should the service be enabled and started (true) of disabled and stopped (false).
 #   Default: true
+#
+# DEPRECATED PARAMETERS
+#
+# [*use_tpool*]
+#   Enable the experimental use of thread pooling for
+#   all DB API calls
+#   Default: $::os_service_default
 #
 class ec2api::api (
   # API
@@ -265,8 +265,6 @@ class ec2api::api (
   # Instance
   $ec2_private_dns_show_ip            = $::os_service_default,
   $default_flavor                     = $::os_service_default,
-  # DB
-  $use_tpool                          = $::os_service_default,
   # Exception
   $fatal_exception_format_errors      = $::os_service_default,
   # Paths
@@ -278,6 +276,8 @@ class ec2api::api (
   $manage_service                     = true,
   $service_name                       = $::ec2api::params::api_service_name,
   $enabled                            = true,
+  # DEPRECATED PARAMETERS
+  $use_tpool                          = undef,
 ) inherits ec2api::params {
 
   include ec2api::deps
@@ -321,12 +321,18 @@ class ec2api::api (
     'DEFAULT/full_vpc_support':                   value => $full_vpc_support;
     'DEFAULT/ec2_private_dns_show_ip':            value => $ec2_private_dns_show_ip;
     'DEFAULT/default_flavor':                     value => $default_flavor;
-    'DEFAULT/use_tpool':                          value => $use_tpool;
     'DEFAULT/fatal_exception_format_errors':      value => $fatal_exception_format_errors;
     'DEFAULT/tempdir':                            value => $tempdir;
     'DEFAULT/pybasedir':                          value => $pybasedir;
     'DEFAULT/bindir':                             value => $bindir;
     'DEFAULT/state_path':                         value => $state_path;
+  }
+
+  if $use_tpool != undef {
+    warning('The use_tpool parameter is deprecated and will be removed in a future release.')
+  }
+  ec2api_config {
+    'DEFAULT/use_tpool': value => pick($use_tpool, $::os_service_default);
   }
 
 
