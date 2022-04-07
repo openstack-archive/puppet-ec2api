@@ -47,6 +47,10 @@
 #   File name for the paste.deploy config for ec2api.
 #   Default: $::os_service_default
 #
+# [*ssl_ca_file*]
+#   CA certificate file to use to verify  connecting clients.
+#   Default: $::os_service_default
+#
 # [*ssl_cert_file*]
 #   SSL certificate of API server.
 #   Default: $::os_service_default
@@ -72,14 +76,6 @@
 #   Default: $::os_service_default
 #
 # === API clients
-#
-# [*ssl_insecure*]
-#   Verify HTTPS connections.
-#   Default: $::os_service_default
-#
-# [*ssl_ca_file*]
-#   VCA certificate file to use to verify connecting clients.
-#   Default: $::os_service_default
 #
 # [*nova_service_type*]
 #   Service type of Compute API, registered in Keystone
@@ -220,6 +216,10 @@
 #   all DB API calls
 #   Default: $::os_service_default
 #
+# [*ssl_insecure*]
+#   Verify HTTPS connections.
+#   Default: undef
+#
 class ec2api::api (
   # API
   $keystone_ec2_tokens_url            = $::os_service_default,
@@ -232,14 +232,13 @@ class ec2api::api (
   $service_down_time                  = $::os_service_default,
   # WSGI
   $api_paste_config                   = $::os_service_default,
+  $ssl_ca_file                        = $::os_service_default,
   $ssl_cert_file                      = $::os_service_default,
   $ssl_key_file                       = $::os_service_default,
   $tcp_keepidle                       = $::os_service_default,
   $wsgi_default_pool_size             = $::os_service_default,
   $max_header_line                    = $::os_service_default,
   # API clients
-  $ssl_insecure                       = $::os_service_default,
-  $ssl_ca_file                        = $::os_service_default,
   $nova_service_type                  = $::os_service_default,
   $cinder_service_type                = $::os_service_default,
   $admin_user                         = $::os_service_default,
@@ -278,6 +277,7 @@ class ec2api::api (
   $enabled                            = true,
   # DEPRECATED PARAMETERS
   $use_tpool                          = undef,
+  $ssl_insecure                       = undef,
 ) inherits ec2api::params {
 
   include ec2api::deps
@@ -295,13 +295,12 @@ class ec2api::api (
     'DEFAULT/ec2api_workers':                     value => $ec2api_workers;
     'DEFAULT/service_down_time':                  value => $service_down_time;
     'DEFAULT/api_paste_config':                   value => $api_paste_config;
+    'DEFAULT/ssl_ca_file':                        value => $ssl_ca_file;
     'DEFAULT/ssl_cert_file':                      value => $ssl_cert_file;
     'DEFAULT/ssl_key_file':                       value => $ssl_key_file;
     'DEFAULT/tcp_keepidle':                       value => $tcp_keepidle;
     'DEFAULT/wsgi_default_pool_size':             value => $wsgi_default_pool_size;
     'DEFAULT/max_header_line':                    value => $max_header_line;
-    'DEFAULT/ssl_insecure':                       value => $ssl_insecure;
-    'DEFAULT/ssl_ca_file':                        value => $ssl_ca_file;
     'DEFAULT/nova_service_type':                  value => $nova_service_type;
     'DEFAULT/cinder_service_type':                value => $cinder_service_type;
     'DEFAULT/admin_user':                         value => $admin_user;
@@ -335,6 +334,12 @@ class ec2api::api (
     'DEFAULT/use_tpool': value => pick($use_tpool, $::os_service_default);
   }
 
+  if $ssl_insecure != undef {
+    warning('The ssl_insecure parameter is deprecated and has no effect.')
+  }
+  ec2api_config {
+    'DEFAULT/ssl_insecure': value => $ssl_insecure;
+  }
 
   if $manage_service {
     if $enabled {

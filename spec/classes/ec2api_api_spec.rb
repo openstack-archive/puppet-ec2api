@@ -17,13 +17,12 @@ describe 'ec2api::api', type: :class do
         DEFAULT/ec2api_use_ssl
         DEFAULT/service_down_time
         DEFAULT/api_paste_config
+        DEFAULT/ssl_ca_file
         DEFAULT/ssl_cert_file
         DEFAULT/ssl_key_file
         DEFAULT/tcp_keepidle
         DEFAULT/wsgi_default_pool_size
         DEFAULT/max_header_line
-        DEFAULT/ssl_insecure
-        DEFAULT/ssl_ca_file
         DEFAULT/nova_service_type
         DEFAULT/cinder_service_type
         DEFAULT/admin_user
