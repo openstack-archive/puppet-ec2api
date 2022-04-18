@@ -67,5 +67,5 @@
     ],
     "source": "git://github.com/openstack/puppet-ec2api.git",
     "summary": "Puppet module for OpenStack Ec2api",
-    "version": "17.4.0"
+    "version": "17.5.0"
 }
