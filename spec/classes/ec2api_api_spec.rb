@@ -42,7 +42,6 @@ describe 'ec2api::api', type: :class do
         DEFAULT/full_vpc_support
         DEFAULT/ec2_private_dns_show_ip
         DEFAULT/default_flavor
-        DEFAULT/use_tpool
         DEFAULT/fatal_exception_format_errors
         DEFAULT/tempdir
         DEFAULT/pybasedir

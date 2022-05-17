@@ -1,0 +1,4 @@
+---
+upgrade:
+  - |
+    The ``ec2api::api::use_tpool`` parameter has been removed.

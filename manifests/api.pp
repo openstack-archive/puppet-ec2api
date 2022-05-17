@@ -211,11 +211,6 @@
 #
 # DEPRECATED PARAMETERS
 #
-# [*use_tpool*]
-#   Enable the experimental use of thread pooling for
-#   all DB API calls
-#   Default: $::os_service_default
-#
 # [*ssl_insecure*]
 #   Verify HTTPS connections.
 #   Default: undef
@@ -276,7 +271,6 @@ class ec2api::api (
   $service_name                       = $::ec2api::params::api_service_name,
   $enabled                            = true,
   # DEPRECATED PARAMETERS
-  $use_tpool                          = undef,
   $ssl_insecure                       = undef,
 ) inherits ec2api::params {
 
@@ -325,13 +319,6 @@ class ec2api::api (
     'DEFAULT/pybasedir':                          value => $pybasedir;
     'DEFAULT/bindir':                             value => $bindir;
     'DEFAULT/state_path':                         value => $state_path;
-  }
-
-  if $use_tpool != undef {
-    warning('The use_tpool parameter is deprecated and will be removed in a future release.')
-  }
-  ec2api_config {
-    'DEFAULT/use_tpool': value => pick($use_tpool, $::os_service_default);
   }
 
   if $ssl_insecure != undef {
