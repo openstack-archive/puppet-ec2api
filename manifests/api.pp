@@ -89,7 +89,7 @@
 #   Default: $::os_service_default
 #
 # [*admin_user*]
-#   Admin user to access specific cloud resourses.
+#   Admin user to access specific cloud resources.
 #   Default: $::os_service_default
 #
 # [*admin_password*]
