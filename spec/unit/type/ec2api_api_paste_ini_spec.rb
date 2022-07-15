@@ -33,7 +33,7 @@ describe Puppet::Type.type(:ec2api_api_paste_ini) do
     expect(@ec2api_api_paste_ini[:value]).to eq('bar')
   end
 
-  it 'should not accept a value with whitespace' do
+  it 'should accept a value with whitespace' do
     @ec2api_api_paste_ini[:value] = 'b ar'
     expect(@ec2api_api_paste_ini[:value]).to eq('b ar')
   end
