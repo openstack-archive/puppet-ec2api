@@ -325,7 +325,7 @@ class ec2api::api (
     warning('The ssl_insecure parameter is deprecated and has no effect.')
   }
   ec2api_config {
-    'DEFAULT/ssl_insecure': value => $ssl_insecure;
+    'DEFAULT/ssl_insecure': value => pick($ssl_insecure, $::os_service_default);
   }
 
   ec2api_config {

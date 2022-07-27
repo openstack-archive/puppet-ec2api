@@ -17,6 +17,7 @@ describe 'ec2api::api', type: :class do
         DEFAULT/ec2api_use_ssl
         DEFAULT/service_down_time
         DEFAULT/api_paste_config
+        DEFAULT/ssl_insecure
         ssl/ca_file
         ssl/cert_file
         ssl/key_file
