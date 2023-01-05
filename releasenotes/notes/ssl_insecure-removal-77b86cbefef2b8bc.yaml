@@ -1,0 +1,4 @@
+---
+upgrade:
+  - |
+    The deprecated ``ec2api::api::ssl_insecure`` parameter has been removed.

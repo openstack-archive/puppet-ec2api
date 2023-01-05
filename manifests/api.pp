@@ -209,12 +209,6 @@
 #   Should the service be enabled and started (true) of disabled and stopped (false).
 #   Default: true
 #
-# DEPRECATED PARAMETERS
-#
-# [*ssl_insecure*]
-#   Verify HTTPS connections.
-#   Default: undef
-#
 class ec2api::api (
   # API
   $keystone_ec2_tokens_url            = $::os_service_default,
@@ -270,8 +264,6 @@ class ec2api::api (
   $manage_service                     = true,
   $service_name                       = $::ec2api::params::api_service_name,
   $enabled                            = true,
-  # DEPRECATED PARAMETERS
-  $ssl_insecure                       = undef,
 ) inherits ec2api::params {
 
   include ec2api::deps
@@ -319,13 +311,6 @@ class ec2api::api (
     'DEFAULT/pybasedir':                          value => $pybasedir;
     'DEFAULT/bindir':                             value => $bindir;
     'DEFAULT/state_path':                         value => $state_path;
-  }
-
-  if $ssl_insecure != undef {
-    warning('The ssl_insecure parameter is deprecated and has no effect.')
-  }
-  ec2api_config {
-    'DEFAULT/ssl_insecure': value => pick($ssl_insecure, $::os_service_default);
   }
 
   ec2api_config {
