@@ -9,6 +9,7 @@ describe 'ec2api::policy' do
           :enforce_scope        => false,
           :enforce_new_defaults => false,
           :policy_path          => '/etc/ec2api/policy.yaml',
+          :policy_default_rule  => 'default',
           :policy_dirs          => '/etc/ec2api/policy.d',
           :policies             => {
             'context_is_admin' => {
@@ -37,6 +38,7 @@ describe 'ec2api::policy' do
           :enforce_scope        => false,
           :enforce_new_defaults => false,
           :policy_file          => '/etc/ec2api/policy.yaml',
+          :policy_default_rule  => 'default',
           :policy_dirs          => '/etc/ec2api/policy.d',
         )
       end
