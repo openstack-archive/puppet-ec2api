@@ -9,7 +9,7 @@ class ec2api::params {
   $user  = 'ec2api'
   $group = 'ec2api'
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       $package_name          = 'openstack-ec2-api'
       $api_service_name      = 'openstack-ec2-api'
@@ -22,7 +22,7 @@ class ec2api::params {
       $metadata_service_name = 'ec2-api-metadata'
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
   }
 }

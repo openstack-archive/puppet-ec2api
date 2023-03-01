@@ -8,58 +8,58 @@
 #
 # [*nova_metadata_ip*]
 #   IP address used by Nova metadata server
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*nova_metadata_port*]
 #   TCP Port used by Nova metadata server
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*nova_metadata_protocol*]
 #   Protocol to access nova metadata, http or https
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*nova_metadata_insecure*]
 #   Allow to perform insecure SSL (https) requests to nova metadata
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*auth_ca_cert*]
 #   Certificate Authority public key (CA cert) file for ssl
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*nova_client_cert*]
 #   Client certificate for nova metadata api server
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*nova_client_priv_key*]
 #   Private key of client certificate
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*metadata_proxy_shared_secret*]
 #   Shared secret to sign instance-id request
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*cache_expiration*]
 #   The time (in seconds) to cache metadata
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # ==== Service
 #
 # [*metadata_listen*]
 #   The IP address on which the metadata API will listen.
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*metadata_listen_port*]
 #   The port on which the metadata API will listen.
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*metadata_use_ssl*]
 #   Enable ssl connections or not for EC2 API Metadata.
-#   Default: $::os_service_default
+#   Default: $facts['os_service_default']
 #
 # [*metadata_workers*]
 #   Number of workers for metadata service.
 #   The default will be the number of CPUs available.
-#   Default: $::os_workers
+#   Default: $facts['os_workers']
 #
 # ==== Manage Service
 #
@@ -77,20 +77,20 @@
 #
 class ec2api::metadata (
   # Metadata
-  $nova_metadata_ip             = $::os_service_default,
-  $nova_metadata_port           = $::os_service_default,
-  $nova_metadata_protocol       = $::os_service_default,
-  $nova_metadata_insecure       = $::os_service_default,
-  $auth_ca_cert                 = $::os_service_default,
-  $nova_client_cert             = $::os_service_default,
-  $nova_client_priv_key         = $::os_service_default,
-  $metadata_proxy_shared_secret = $::os_service_default,
-  $cache_expiration             = $::os_service_default,
+  $nova_metadata_ip             = $facts['os_service_default'],
+  $nova_metadata_port           = $facts['os_service_default'],
+  $nova_metadata_protocol       = $facts['os_service_default'],
+  $nova_metadata_insecure       = $facts['os_service_default'],
+  $auth_ca_cert                 = $facts['os_service_default'],
+  $nova_client_cert             = $facts['os_service_default'],
+  $nova_client_priv_key         = $facts['os_service_default'],
+  $metadata_proxy_shared_secret = $facts['os_service_default'],
+  $cache_expiration             = $facts['os_service_default'],
   # Service
-  $metadata_listen              = $::os_service_default,
-  $metadata_listen_port         = $::os_service_default,
-  $metadata_use_ssl             = $::os_service_default,
-  $metadata_workers             = $::os_workers,
+  $metadata_listen              = $facts['os_service_default'],
+  $metadata_listen_port         = $facts['os_service_default'],
+  $metadata_use_ssl             = $facts['os_service_default'],
+  $metadata_workers             = $facts['os_workers'],
   # Manage service
   $manage_service               = true,
   $service_name                 = $::ec2api::params::metadata_service_name,
