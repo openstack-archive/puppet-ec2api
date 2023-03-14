@@ -281,9 +281,9 @@ class ec2api::api (
     'DEFAULT/ec2api_workers':                     value => $ec2api_workers;
     'DEFAULT/service_down_time':                  value => $service_down_time;
     'DEFAULT/api_paste_config':                   value => $api_paste_config;
-    'ssl/ca_file':                                value => $ssl_ca_file;
-    'ssl/cert_file':                              value => $ssl_cert_file;
-    'ssl/key_file':                               value => $ssl_key_file;
+    'DEFAULT/ssl_ca_file':                        value => $ssl_ca_file;
+    'DEFAULT/ssl_cert_file':                      value => $ssl_cert_file;
+    'DEFAULT/ssl_key_file':                       value => $ssl_key_file;
     'DEFAULT/tcp_keepidle':                       value => $tcp_keepidle;
     'DEFAULT/wsgi_default_pool_size':             value => $wsgi_default_pool_size;
     'DEFAULT/max_header_line':                    value => $max_header_line;
@@ -313,10 +313,11 @@ class ec2api::api (
     'DEFAULT/state_path':                         value => $state_path;
   }
 
+  # TODO(tkajinam): Remove this after 2023.1 release
   ec2api_config {
-    'DEFAULT/ssl_ca_file':   ensure => absent;
-    'DEFAULT/ssl_cert_file': ensure => absent;
-    'DEFAULT/ssl_key_file':  ensure => absent;
+    'ssl/ca_file':   ensure => absent;
+    'ssl/cert_file': ensure => absent;
+    'ssl/key_file':  ensure => absent;
   }
 
   if $manage_service {
