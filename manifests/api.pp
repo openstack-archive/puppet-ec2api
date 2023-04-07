@@ -313,13 +313,6 @@ class ec2api::api (
     'DEFAULT/state_path':                         value => $state_path;
   }
 
-  # TODO(tkajinam): Remove this after 2023.1 release
-  ec2api_config {
-    'ssl/ca_file':   ensure => absent;
-    'ssl/cert_file': ensure => absent;
-    'ssl/key_file':  ensure => absent;
-  }
-
   if $manage_service {
     if $enabled {
       $service_ensure = 'running'
