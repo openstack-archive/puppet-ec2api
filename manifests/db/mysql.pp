@@ -34,23 +34,16 @@
 #   Defaults to 'utf8_general_ci'
 #
 class ec2api::db::mysql (
-  $password,
-  $user          = 'ec2api',
-  $dbname        = 'ec2api',
-  $host          = '127.0.0.1',
-  $charset       = 'utf8',
-  $collate       = 'utf8_general_ci',
-  $allowed_hosts = undef
+  String[1] $password,
+  String[1] $user    = 'ec2api',
+  String[1] $dbname  = 'ec2api',
+  String[1] $host    = '127.0.0.1',
+  String[1] $charset = 'utf8',
+  String[1] $collate = 'utf8_general_ci',
+  $allowed_hosts     = undef
 ) {
 
   include ec2api::deps
-
-  validate_legacy(String, 'validate_string', $password)
-  validate_legacy(String, 'validate_string', $dbname)
-  validate_legacy(String, 'validate_string', $user)
-  validate_legacy(String, 'validate_string', $host)
-  validate_legacy(String, 'validate_string', $charset)
-  validate_legacy(String, 'validate_string', $collate)
 
   ::openstacklib::db::mysql { 'ec2api':
     user          => $user,

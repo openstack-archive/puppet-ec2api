@@ -25,21 +25,17 @@
 #   Defaults to false.
 #
 class ec2api (
-  $package_ensure   = 'present',
-  $package_manage   = true,
-  $package_name     = $::ec2api::params::package_name,
-  $package_provider = undef,
-  $purge_config     = false,
+  String $package_ensure  = 'present',
+  Boolean $package_manage = true,
+  String[1] $package_name = $::ec2api::params::package_name,
+  $package_provider       = undef,
+  $purge_config           = false,
 ) inherits ec2api::params {
 
   include ec2api::deps
   include ec2api::config
   include ec2api::policy
   include ec2api::db
-
-  validate_legacy(String, 'validate_string', $package_ensure)
-  validate_legacy(Boolean, 'validate_bool', $package_manage)
-  validate_legacy(String, 'validate_string', $package_name)
 
   if $package_manage {
     package { 'ec2api' :

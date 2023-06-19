@@ -92,16 +92,13 @@ class ec2api::metadata (
   $metadata_use_ssl             = $facts['os_service_default'],
   $metadata_workers             = $facts['os_workers'],
   # Manage service
-  $manage_service               = true,
-  $service_name                 = $::ec2api::params::metadata_service_name,
-  $enabled                      = true,
+  Boolean $manage_service       = true,
+  String[1] $service_name       = $::ec2api::params::metadata_service_name,
+  Boolean $enabled              = true,
 ) inherits ec2api::params {
 
   include ec2api::deps
 
-  validate_legacy(Boolean, 'validate_bool', $manage_service)
-  validate_legacy(String, 'validate_string', $service_name)
-  validate_legacy(Boolean, 'validate_bool', $enabled)
 
   ec2api_config {
     'metadata/nova_metadata_ip':             value => $nova_metadata_ip;

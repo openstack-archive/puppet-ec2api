@@ -24,14 +24,11 @@
 #   or Puppet catalog compilation will fail with duplicate resources.
 #
 class ec2api::config (
-  $ec2api_config        = {},
-  $ec2api_api_paste_ini = {},
+  Hash $ec2api_config        = {},
+  Hash $ec2api_api_paste_ini = {},
 ) {
 
   include ec2api::deps
-
-  validate_legacy(Hash, 'validate_hash', $ec2api_config)
-  validate_legacy(Hash, 'validate_hash', $ec2api_api_paste_ini)
 
   create_resources('ec2api_config', $ec2api_config)
   create_resources('ec2api_api_paste_ini', $ec2api_api_paste_ini)
