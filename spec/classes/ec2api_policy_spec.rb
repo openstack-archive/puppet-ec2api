@@ -33,6 +33,7 @@ describe 'ec2api::policy' do
           :file_group   => 'ec2api',
           :file_format  => 'yaml',
           :purge_config => false,
+          :tag          => 'ec2api',
         )
         is_expected.to contain_oslo__policy('ec2api_config').with(
           :enforce_scope        => false,
@@ -63,6 +64,7 @@ describe 'ec2api::policy' do
           :file_group   => 'ec2api',
           :file_format  => 'yaml',
           :purge_config => true,
+          :tag          => 'ec2api',
         )
         is_expected.to contain_oslo__policy('ec2api_config').with(
           :enforce_scope        => false,

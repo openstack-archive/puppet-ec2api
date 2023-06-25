@@ -67,6 +67,7 @@ class ec2api::policy (
     file_group   => $::ec2api::params::group,
     file_format  => 'yaml',
     purge_config => $purge_config,
+    tag          => 'ec2api',
   }
 
   create_resources('openstacklib::policy', { $policy_path => $policy_parameters })
