@@ -52,7 +52,7 @@ class ec2api::policy (
   $policy_path          = '/etc/ec2api/policy.yaml',
   $policy_default_rule  = $facts['os_service_default'],
   $policy_dirs          = $facts['os_service_default'],
-  $purge_config         = false,
+  Boolean $purge_config = false,
 ) {
 
   include ec2api::deps

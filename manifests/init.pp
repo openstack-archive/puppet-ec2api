@@ -29,7 +29,7 @@ class ec2api (
   Boolean $package_manage = true,
   String[1] $package_name = $::ec2api::params::package_name,
   $package_provider       = undef,
-  $purge_config           = false,
+  Boolean $purge_config   = false,
 ) inherits ec2api::params {
 
   include ec2api::deps
