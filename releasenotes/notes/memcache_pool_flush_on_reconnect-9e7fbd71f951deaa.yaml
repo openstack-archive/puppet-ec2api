@@ -1,5 +1,0 @@
----
-features:
-  - |
-    The new ``ec2api::cache::memcache_pool_flush_on_reconnect`` parameter has
-    been added.

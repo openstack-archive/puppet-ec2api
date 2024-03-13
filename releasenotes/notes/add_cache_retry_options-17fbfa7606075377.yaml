@@ -1,4 +1,0 @@
----
-features:
-  - |
-    Add cache client retry options for the pymemcache (dogpile.cache) backend.

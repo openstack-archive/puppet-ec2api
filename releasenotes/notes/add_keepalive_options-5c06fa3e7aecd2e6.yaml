@@ -1,4 +1,0 @@
----
-features:
-  - |
-    Add socket keepalive options for the pymemcache (dogpile.cache) backend.

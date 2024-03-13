@@ -1,5 +1,0 @@
----
-deprecations:
-  - |
-    The ``ec2api::api::ssl_insecure`` parameter has been deprecated nad has no
-    effect now. The actual parameter in EC2-Api was already removed.

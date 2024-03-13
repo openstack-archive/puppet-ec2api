@@ -1,4 +1,0 @@
----
-upgrade:
-  - |
-    ec2api::logging is now not included by default in init class.
